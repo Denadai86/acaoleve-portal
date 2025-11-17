@@ -1,8 +1,10 @@
 // app/page.tsx
 import { ServiceCard } from '@/components/ServiceCard';
 import { Metadata } from 'next';
+import Link from 'next/link'; // <--- ESTA LINHA ESTAVA FALTANDO!
 
 /**
+
  * @name metadata
  * @description Definições de Meta-dados para SEO do Portal.
  * @best_practice Usar o objeto Metadata no App Router (RSC) para SEO nativo.
