@@ -13,13 +13,16 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    // Define o ponto de partida para os caminhos de importação
+    "baseUrl": ".", 
     "plugins": [
       {
         "name": "next"
       }
     ],
+    // CORREÇÃO CRÍTICA AQUI: O atalho "@" aponta para a raiz do projeto.
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"] 
     }
   },
   "include": [
