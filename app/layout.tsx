@@ -52,8 +52,20 @@ export default function RootLayout({
             {children}
         </main>
         
-        <footer className="w-full text-center p-4 border-t text-sm text-gray-500">
-            © {new Date().getFullYear()} Ação Leve. Todas as ferramentas são construídas com ❤️ e Next.js.
+        
+
+        <footer className="w-full bg-gray-50 border-t">
+            <div className="max-w-7xl mx-auto p-6 md:flex md:items-center md:justify-between">
+                <span className="text-sm text-gray-500 sm:text-center">
+                    © {new Date().getFullYear()} Ação Leve. Todos os direitos reservados.
+                </span>
+                <div className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 sm:mt-0">
+                    {/* Links para as páginas legais */}
+                    <a href="/politica-de-privacidade" className="me-4 hover:underline md:me-6">Política de Privacidade</a>
+                    <a href="/termos-de-uso" className="me-4 hover:underline md:me-6">Termos de Uso</a>
+                    <a href="/contato" className="hover:underline">Contato</a>
+                </div>
+            </div>
         </footer>
       </body>
     </html>
