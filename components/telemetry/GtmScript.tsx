@@ -6,37 +6,34 @@ import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-// O ID do GTM deve vir das variáveis de ambiente
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+// O GTM_ID é lido aqui. Como a Vercel garante que ele exista, não precisamos de || null,
+// mas para robustez, vamos mantê-lo.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || null;
 
-// Tipagem básica para garantir o GTM ID
-if (!GTM_ID) {
-  // eslint-disable-next-line no-console
-  console.error('NEXT_PUBLIC_GTM_ID não está definido. O rastreamento está desativado.');
+/**
+ * Interface que garante a tipagem correta do DataLayer (usando a declaração global em types/gtm.d.ts).
+ */
+interface GtmPushData {
+  event: string;
+  page: string;
+  [key: string]: any; 
 }
 
 /**
- * Função para inicializar o GTM (DataLayer)
- * Esta função é importante para garantir que o GTM funcione corretamente.
+ * Componente que injeta o script principal do GTM (DataLayer) no <head>
  */
 function GtmInitialisation() {
+  // Se o ID não existir, não renderiza o Script
+  if (!GTM_ID) return null;
+
+  // 🛑 CORREÇÃO DE INJEÇÃO: Usar um <Script> simples para injetar a tag do GTM.
+  // Isso é mais limpo e confiável do que o dangerouslySetInnerHTML para a tag padrão.
+  // A estratégia 'beforeInteractive' é correta.
   return (
     <Script
-      id="gtm-initialisation"
-      strategy="beforeInteractive" // Prioridade alta, antes do React carregar
-      dangerouslySetInnerHTML={{
-        __html: `
-        if (window.dataLayer) {
-          console.log('dataLayer já existe, evitando sobrescrita.');
-        } else {
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${GTM_ID}');
-        }
-        `,
-      }}
+      id="googletagmanager"
+      strategy="beforeInteractive" 
+      src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
     />
   );
 }
@@ -49,13 +46,18 @@ const GtmPageviewTracker = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (GTM_ID && process.env.NODE_ENV === 'production') {
+    // Apenas dispara se o GTM_ID estiver presente e estivermos no navegador
+    // O typeof window !== 'undefined' garante que este código só rode no lado do cliente.
+    if (GTM_ID && typeof window !== 'undefined') {
       const url = pathname + searchParams.toString();
-      // Dispara um evento de pageview para o GTM em cada mudança de rota no lado do cliente
-      window.dataLayer.push({
-        event: 'page_view',
-        page: url,
-      });
+      
+      // Checa se o dataLayer foi inicializado (deve ser true se GtmInitialisation rodou)
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'page_view',
+          page: url,
+        } as GtmPushData);
+      }
     }
   }, [pathname, searchParams]);
 
@@ -64,24 +66,25 @@ const GtmPageviewTracker = () => {
 
 /**
  * Componente principal do GTM (para ser injetado no layout)
- * Inclui o script de head e o iframe (noscript) para conformidade.
  */
 export function GtmScript() {
-  // Apenas carrega o script em produção E se o ID estiver definido
-  if (process.env.NODE_ENV !== 'production' || !GTM_ID) {
-    return null;
+  // Apenas carrega o script se o ID estiver definido
+  if (!GTM_ID) {
+    if (process.env.NODE_ENV === 'development') {
+        console.warn('GTM_ID ausente. O rastreamento está desativado.');
+    }
+    // Retorna um fragmento vazio (sem <noscript>), para garantir que o componente
+    // seja processado e não cause erros.
+    return <></>; 
   }
 
+  // Se o ID existir, renderizamos
   return (
     <>
       <GtmInitialisation />
       <GtmPageviewTracker />
 
-      {/* NO-SCRIPT: Este é o iframe que deve vir logo após o <body>.
-          No Next.js, a forma mais limpa é injetá-lo no layout principal. */}
-      {/* ATENÇÃO: Se usar o Next.js 14+ com App Router, o GTM não deve
-          estar dentro do seu root <Body> componente. Ele é injetado
-          diretamente no layout. */}
+      {/* NO-SCRIPT: Este iframe é o que precisa ser injetado *logo após* o <body> (que é o que acontece aqui) */}
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
