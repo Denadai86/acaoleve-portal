@@ -12,6 +12,13 @@ const tools = [
     featured: true,
   },
   {
+    title: 'Brinca-AI',
+    description: 'IA que cria brincadeiras e atividades para crianças de todas as idades.',
+    href: 'https://brinca-ai.acaoleve.com',
+    badge: 'LANÇAMENTO QUENTE',
+    featured: true,
+  },
+  {
     title: 'PolicyGen',
     description: 'Gere políticas de privacidade e termos de uso rapidamente.',
     href: 'https://policygen.acaoleve.com',
