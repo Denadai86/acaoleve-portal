@@ -4,14 +4,14 @@
 
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+// 🛑 IMPORTAÇÃO NECESSÁRIA: Importamos Suspense para evitar o erro de prerendering
+import { useEffect, Suspense } from 'react'; 
 
-// O GTM_ID é lido aqui. Como a Vercel garante que ele exista, não precisamos de || null,
-// mas para robustez, vamos mantê-lo.
+// O GTM_ID é lido aqui. Se não estiver na variável de ambiente, será null.
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || null;
 
 /**
- * Interface que garante a tipagem correta do DataLayer (usando a declaração global em types/gtm.d.ts).
+ * Interface que garante a tipagem correta do DataLayer.
  */
 interface GtmPushData {
   event: string;
@@ -19,39 +19,38 @@ interface GtmPushData {
   [key: string]: any; 
 }
 
+// --- Componentes Internos ---
+
 /**
- * Componente que injeta o script principal do GTM (DataLayer) no <head>
+ * 1. Função para inicializar o GTM (Injeta a tag <script> no <head> com prioridade alta)
  */
 function GtmInitialisation() {
-  // Se o ID não existir, não renderiza o Script
   if (!GTM_ID) return null;
 
-  // 🛑 CORREÇÃO DE INJEÇÃO: Usar um <Script> simples para injetar a tag do GTM.
-  // Isso é mais limpo e confiável do que o dangerouslySetInnerHTML para a tag padrão.
-  // A estratégia 'beforeInteractive' é correta.
+  // Usa o componente Script do Next.js, que gerencia o carregamento de terceiros
   return (
     <Script
       id="googletagmanager"
-      strategy="beforeInteractive" 
+      strategy="beforeInteractive" // Garante que o script carregue antes da interação
       src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
     />
   );
 }
 
 /**
- * Componente que lida com o rastreamento de rota
+ * 2. Componente que lida com o rastreamento de rota (Usa APIs Client-Side)
  */
 const GtmPageviewTracker = () => {
+  // Chamadas Client-Side que disparam o erro de Suspense se não forem isoladas
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Apenas dispara se o GTM_ID estiver presente e estivermos no navegador
-    // O typeof window !== 'undefined' garante que este código só rode no lado do cliente.
+    // 🛑 EXECUÇÃO SÊNIOR: Verifica se está no cliente e se o ID existe
     if (GTM_ID && typeof window !== 'undefined') {
       const url = pathname + searchParams.toString();
       
-      // Checa se o dataLayer foi inicializado (deve ser true se GtmInitialisation rodou)
+      // Checa se o dataLayer foi inicializado pelo script principal
       if (window.dataLayer) {
         window.dataLayer.push({
           event: 'page_view',
@@ -64,17 +63,17 @@ const GtmPageviewTracker = () => {
   return null;
 };
 
+// --- Componente Principal ---
+
 /**
  * Componente principal do GTM (para ser injetado no layout)
  */
 export function GtmScript() {
-  // Apenas carrega o script se o ID estiver definido
+  // Desativa tudo se o ID estiver faltando (previne log de erro em produção)
   if (!GTM_ID) {
     if (process.env.NODE_ENV === 'development') {
         console.warn('GTM_ID ausente. O rastreamento está desativado.');
     }
-    // Retorna um fragmento vazio (sem <noscript>), para garantir que o componente
-    // seja processado e não cause erros.
     return <></>; 
   }
 
@@ -82,9 +81,15 @@ export function GtmScript() {
   return (
     <>
       <GtmInitialisation />
-      <GtmPageviewTracker />
+      
+      {/* 🏆 CORREÇÃO DE SUSPENSE: Envolvemos o Pageview Tracker.
+          Isso resolve o erro de prerendering, pois o Next.js agora espera 
+          o cliente renderizar o componente que usa useSearchParams(). */}
+      <Suspense fallback={null}> 
+        <GtmPageviewTracker />
+      </Suspense>
 
-      {/* NO-SCRIPT: Este iframe é o que precisa ser injetado *logo após* o <body> (que é o que acontece aqui) */}
+      {/* NO-SCRIPT: Iframe para usuários sem JS. */}
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
