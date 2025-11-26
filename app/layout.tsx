@@ -9,9 +9,8 @@ import './globals.css'
 import { GtmScript } from '@/components/telemetry/GtmScript'
 
 // 🛑 CORREÇÃO SÊNIOR PARA BUILD/SSR: 
-// Usar ' || "" ' (string vazia) garante que a variável nunca será undefined
-// e evita a quebra do prerendering do Next.js se o Vercel não injetar a variável a tempo.
-// O valor real do ID de editora é 'ca-pub-9532990788495378', que deve estar no Vercel.
+// Usamos ' || "" ' (string vazia) para garantir que a variável NUNCA seja undefined,
+// prevenindo quebras de build. O valor real virá do Vercel.
 const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || ''; 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,17 +22,24 @@ const footerTextStyle = "text-sm text-gray-500 sm:text-center";
 const footerLinkStyle = "me-4 hover:underline md:me-6";
 
 
-export const metadata: Metadata = {
+// 🛑 CORREÇÃO DE METADADOS: Estrutura condicional para prevenir quebras de prerendering
+const baseMetadata: Metadata = {
   title: 'Ação Leve - Portal de Micro-SaaS',
   description: 'Coleção de ferramentas simples e leves para produtividade digital.',
-  
-  // Metatag de Verificação AdSense Integrada
-  // O valor aqui será o ID real se presente, ou uma string vazia (seguro).
   metadataBase: new URL('https://acaoleve.com'),
-  other: {
-    'google-adsense-account': ADSENSE_PUB_ID,
-  },
-}
+};
+
+export const metadata: Metadata = {
+  ...baseMetadata,
+  // Adiciona a propriedade 'other' SOMENTE se o ADSENSE_PUB_ID for uma string válida (não vazia).
+  // Isso impede que o Next.js tente construir a chave 'google-adsense-account' com um valor vazio durante o build.
+  ...(ADSENSE_PUB_ID && {
+    other: {
+      'google-adsense-account': ADSENSE_PUB_ID,
+    },
+  }),
+};
+
 
 export default function RootLayout({
   children,
