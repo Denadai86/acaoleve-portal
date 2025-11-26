@@ -8,10 +8,14 @@ import './globals.css'
 // Importação do componente de Telemetria (GTM)
 import { GtmScript } from '@/components/telemetry/GtmScript'
 
-// 🛑 CORREÇÃO SÊNIOR PARA BUILD/SSR: 
-// Usamos ' || "" ' (string vazia) para garantir que a variável NUNCA seja undefined,
-// prevenindo quebras de build. O valor real virá do Vercel.
+// 🛑 CORREÇÃO SÊNIOR para VARIÁVEIS DE AMBIENTE (Server Side)
+
+// 1. Leitura do AdSense ID (corrigida anteriormente com condicional no metadata)
 const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || ''; 
+
+// 2. Leitura do GTM ID (Nova Leitura no Server Component, para ser passado como prop)
+// Usamos ' || null ' para ter a tipagem correta no GtmScript.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || null;
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +26,7 @@ const footerTextStyle = "text-sm text-gray-500 sm:text-center";
 const footerLinkStyle = "me-4 hover:underline md:me-6";
 
 
-// 🛑 CORREÇÃO DE METADADOS: Estrutura condicional para prevenir quebras de prerendering
+// 🛑 METADADOS: Estrutura condicional (mantida para evitar quebra no Adsense ID vazio)
 const baseMetadata: Metadata = {
   title: 'Ação Leve - Portal de Micro-SaaS',
   description: 'Coleção de ferramentas simples e leves para produtividade digital.',
@@ -31,8 +35,6 @@ const baseMetadata: Metadata = {
 
 export const metadata: Metadata = {
   ...baseMetadata,
-  // Adiciona a propriedade 'other' SOMENTE se o ADSENSE_PUB_ID for uma string válida (não vazia).
-  // Isso impede que o Next.js tente construir a chave 'google-adsense-account' com um valor vazio durante o build.
   ...(ADSENSE_PUB_ID && {
     other: {
       'google-adsense-account': ADSENSE_PUB_ID,
@@ -49,8 +51,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       
-      {/* GTM Script Injetado: Ele lida com o carregamento do código JS/noscript no <head> e <body>. */}
-      <GtmScript />
+      {/* 🏆 CORREÇÃO DE INJEÇÃO GTM: Passa o GTM_ID lido no Server Component como prop. 
+          Isso garante que o Client Component (GtmScript) receba o valor e pare de falhar no build. */}
+      <GtmScript gtmId={GTM_ID} />
 
       <body className={inter.className}>
         
