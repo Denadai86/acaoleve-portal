@@ -12,7 +12,7 @@ import { GtmScript } from '@/components/telemetry/GtmScript'
 // O ADSENSE_PUB_ID deve estar no .env.local como NEXT_PUBLIC_ADSENSE_PUB_ID
 // No entanto, para fins de metatag, vamos manter uma constante aqui
 // (Melhor seria usar um Server Component para ler o .env e passar para Metadata, mas o Next.js lida com isso se a constante for definida)
-const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || 'ca-pub-SEU_ID_PADRAO';
+const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || 'ca-pub-9532990788495378';
 
 const inter = Inter({ subsets: ['latin'] })
 

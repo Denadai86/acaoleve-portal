@@ -37,7 +37,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    // 💡 ADIÇÃO SÊNIOR: Incluir a pasta 'types' para que o TS reconheça 'gtm.d.ts'
+    "types/**/*.ts" 
   ],
   "exclude": [
     "node_modules"
