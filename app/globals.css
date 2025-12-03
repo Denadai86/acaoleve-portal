@@ -1,9 +1,26 @@
-/* /app/globals.css */
+/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Estilos globais adicionais, se necessário */
+/* ---------------------------
+   Estilos globais da aplicação
+---------------------------- */
 body {
-  @apply bg-gray-50 text-gray-800;
+  @apply bg-gray-50 text-gray-800 antialiased;
+}
+
+/* Remove highlight feio em mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Suaviza rolagem */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Melhor aparência dos placeholders */
+::placeholder {
+  @apply text-gray-400;
 }

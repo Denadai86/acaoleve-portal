@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,20 +13,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    // Define o ponto de partida para os caminhos de importação
+
+    // 🔽 IMPORTANTE: Seu projeto NÃO usa SRC.
     "baseUrl": ".",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    // CORREÇÃO CRÍTICA AQUI: O atalho "@" aponta para a raiz do projeto.
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"]
+    },
+
+    "plugins": [{ "name": "next" }]
   },
+
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -38,10 +30,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    // 💡 ADIÇÃO SÊNIOR: Incluir a pasta 'types' para que o TS reconheça 'gtm.d.ts'
-    "types/**/*.ts" 
+    "types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+
+  "exclude": ["node_modules"]
 }

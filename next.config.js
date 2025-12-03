@@ -1,17 +1,60 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Configurações padrão ou vazias para o MVP.
-    // Garantimos que o modo strict seja false para evitar possíveis problemas
-    // com bibliotecas externas no futuro, se necessário.
-    reactStrictMode: true,
 
-    // Configuração de subdomínio para os micro-SaaS
-    // Esta configuração é crucial para a escalabilidade dos seus projetos.
-    async rewrites() {
-        return [
-            // Rotas que não devem ser tratadas pelo Next.js (ex: arquivos estáticos)
-        ];
+  // 🔍 Ajuda a detectar problemas silenciosos
+  reactStrictMode: true,
+
+  // 📸 Permite imagens externas (Google, GitHub, etc.)
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com', // Google OAuth image
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com', // GitHub OAuth image
+      },
+      {
+        protocol: 'https',
+        hostname: 'platform-lookaside.fbsbx.com', // Facebook image (caso use no futuro)
+      },
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com', // Twitter / X images
+      },
+      {
+        protocol: 'https',
+        hostname: '**.gravatar.com', // Gravatar
+      },
+    ],
+  },
+
+  // 🚀 Melhor desempenho para aplicações SaaS hospedadas na Vercel
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
     },
+  },
+
+  // 🔁 Rewrites (caso queira API Proxy no futuro)
+  async rewrites() {
+    return [
+      // Exemplo: redirecionar /api/external → API externa (ainda vazio)
+      // {
+      //   source: "/api/external/:path*",
+      //   destination: "https://api.exemplo.com/:path*",
+      // },
+    ];
+  },
+
+  // 📦 Desabilita sourcemaps de produção (segurança extra)
+  productionBrowserSourceMaps: false,
+
+  // 📌 Permite usar env vars públicas corretamente
+  env: {
+    NEXT_PUBLIC_APP_NAME: "Ação Leve Portal",
+  },
 };
 
 module.exports = nextConfig;
