@@ -1,3 +1,5 @@
+// components/Header.tsx
+
 "use client";
 
 import Link from "next/link";
@@ -33,11 +35,14 @@ export default function Header() {
               width={36}
               height={36}
               alt="Logo Ação Leve"
+              loading="lazy" // Lazy load como no seu HTML
+              decoding="async" // Decodifica em background
               className="rounded-xl object-contain group-hover:scale-105 transition"
+              sizes="(max-width: 768px) 36px, 36px" // Responsivo: 36px em mobile e desktop
             />
 
-            <span className="text-xl font-semibold text-gray-800 group-hover:text-primary transition">
-              Ação Leve Portal
+            <span className="text-xl font-semibold text-gray-800 group-hover:text-primary transition hidden sm:inline">
+              Ação Leve
             </span>
           </Link>
         </div>
