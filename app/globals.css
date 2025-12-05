@@ -1,26 +1,30 @@
-/* app/globals.css */
+/* app/globals.css (CORREÇÃO DE SINTAXE) */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ---------------------------
-   Estilos globais da aplicação
+   Estilos base e reset
 ---------------------------- */
-body {
-  @apply bg-gray-50 text-gray-800 antialiased;
+
+/* Aplica o comportamento de scroll suave e base de texto */
+html {
+  scroll-behavior: smooth;
+  @apply text-gray-800 antialiased;
 }
 
-/* Remove highlight feio em mobile */
+/* Fundo Fixo (bg-fixed): Garante que o gradiente do layout.tsx fique estático */
+body { 
+  background-attachment: fixed !important;
+}
+
+/* Remove highlight feio em mobile (toque) */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Suaviza rolagem */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Melhor aparência dos placeholders */
 ::placeholder {
-  @apply text-gray-400;
+  @apply text-gray-400 opacity-100;
 }
