@@ -27,6 +27,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.gravatar.com', // Gravatar
       },
+      {
+        protocol: 'https',
+        hostname: 'keuabft7jwxlysoy.public.blob.vercel-storage.com', // O SEU HOSTNAME DO BLOB
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 
