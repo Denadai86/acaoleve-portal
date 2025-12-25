@@ -1,0 +1,15 @@
+name: Update Screenshots Weekly
+
+on:
+  schedule:
+    # Roda toda segunda-feira às 06:00 AM UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch: # Permite que você clique num botão e rode manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Screenshot API
+        run: |
+          curl -X GET "https://acaoleve.com/api/update-screenshots"

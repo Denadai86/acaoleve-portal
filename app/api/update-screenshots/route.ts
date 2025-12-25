@@ -9,54 +9,50 @@ const TOOLS = [
   { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com' }
 ];
 
-export async function GET() {
-  console.log("🚀 Iniciando atualização PARALELA (com Overwrite)...");
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const secret = searchParams.get('secret');
+
+  // Prioriza a variável de ambiente, se não houver, usa o fallback
+  const MY_SECRET = process.env.CRON_SECRET || "acaoleve_screenshot_replace_2026";
+
+  if (!secret || secret !== MY_SECRET) {
+    console.log("🚫 Tentativa de acesso não autorizado.");
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
 
   try {
-    const promises = TOOLS.map(async (tool) => {
+    const results = await Promise.all(TOOLS.map(async (tool) => {
       try {
-        // 1. Tira o print (espera 4s para carregar tudo)
-        const microlinkApi = `https://api.microlink.io/?url=${tool.url}&screenshot=true&meta=false&overlay.browser=dark&waitFor=4000&waitUntil=networkidle0`;
+        const microlinkUrl = `https://api.microlink.io/?url=${tool.url}&screenshot=true&meta=false&waitFor=4000&waitUntil=networkidle0&overlay.browser=dark`;
         
-        const metadataResponse = await fetch(microlinkApi);
-        const metadata = await metadataResponse.json();
+        const metadataRes = await fetch(microlinkUrl);
+        const metadata = await metadataRes.json();
 
-        if (metadata.status === 'fail' || !metadata.data?.screenshot?.url) {
-            console.error(`❌ Falha Microlink: ${tool.id}`);
-            return { tool: tool.id, status: 'error' };
-        }
+        if (metadata.status === 'fail') throw new Error(metadata.message);
 
-        const imageUrl = metadata.data.screenshot.url;
-        
-        // 2. Baixa a imagem
-        const imageResponse = await fetch(imageUrl);
-        const arrayBuffer = await imageResponse.arrayBuffer();
-        
-        // 3. Salva no Blob (AGORA COM PERMISSÃO PARA SOBRESCREVER)
-        const blob = await put(`screenshots/${tool.id}.jpg`, Buffer.from(arrayBuffer), {
+        const imageRes = await fetch(metadata.data.screenshot.url);
+        const buffer = Buffer.from(await imageRes.arrayBuffer());
+
+        const blob = await put(`screenshots/${tool.id}.jpg`, buffer, {
           access: 'public',
-          addRandomSuffix: false,     // Mantém o nome fixo
-          contentType: 'image/jpeg',  // Garante que o navegador entenda que é imagem
-          // AQUI ESTÁ A CORREÇÃO:
-          token: process.env.BLOB_READ_WRITE_TOKEN, // Garante que usa o token certo
-          // @ts-ignore - Algumas versões do TS reclamam, mas a API exige isso
-          allowOverwrite: true        // <--- O PULO DO GATO
+          addRandomSuffix: false,
+          contentType: 'image/jpeg',
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+          // @ts-ignore
+          allowOverwrite: true,
         });
 
-        console.log(`✅ ${tool.id} atualizado com sucesso!`);
         return { tool: tool.id, status: 'success', url: blob.url };
-
       } catch (err: any) {
-        console.error(`Erro em ${tool.id}: ${err.message}`);
-        return { tool: tool.id, status: 'error', error: err.message };
+        return { tool: tool.id, status: 'error', reason: err.message };
       }
-    });
+    }));
 
-    const results = await Promise.all(promises);
-
-    return NextResponse.json({ 
-      message: "Screenshots atualizados e sobrescritos", 
-      results 
+    return NextResponse.json({
+      message: "Operação finalizada",
+      timestamp: new Date().toISOString(),
+      results
     });
 
   } catch (error: any) {
