@@ -33,18 +33,19 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        // CORREÇÃO AQUI: Garantindo que nunca seja null/undefined
+        // Blindagem de Tipos: Garante string ou string vazia para evitar erro de build
         // @ts-ignore
         session.user.id = (token.id as string) || (token.sub as string) || "";
         session.user.name = token.name || "";
         session.user.email = token.email || "";
-        // Forçamos string ou string vazia para satisfazer o seu tipo next-auth.d.ts
         session.user.image = (token.picture as string) || "";
       }
       return session;
     },
     async redirect({ url, baseUrl }) {
+      // Permite redirecionamentos relativos
       if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Permite redirecionamentos para a mesma origem
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },
@@ -54,10 +55,11 @@ export const authOptions: AuthOptions = {
       name: `__Secure-next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "lax", // Essencial para o login funcionar bem no Mobile
         path: "/",
         secure: true,
       },
     },
   },
+  // REMOVIDO: trustHost (Não existe na tipagem do v4, usamos NEXTAUTH_URL no .env)
 };
