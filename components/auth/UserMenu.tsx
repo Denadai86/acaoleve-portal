@@ -26,8 +26,10 @@ export function UserMenu({ isScrolled = false }: UserMenuProps) {
     return (
       <button
         onClick={() =>
+          // ADICIONADO: callbackUrl força o retorno para a home
           signIn("google", {
             prompt: "select_account",
+            callbackUrl: "/", 
           })
         }
         className="
