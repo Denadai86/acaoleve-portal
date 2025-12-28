@@ -1,12 +1,12 @@
 // app/page.tsx
 import Link from 'next/link';
 import Image from 'next/image';
+import { AdUnit } from '@/components/ads/AdUnit'; // <--- NOVO: Importa o bloco de anúncio
 
-// 1. URL BASE DO SEU BLOB (Peguei do seu link enviado)
+// 1. URL BASE DO SEU BLOB
 const BLOB_BASE_URL = "https://keuabft7jwxlysoy.public.blob.vercel-storage.com/screenshots";
 
 // 2. CONFIGURAÇÃO CENTRALIZADA
-// O "id" deve ser exatamente o mesmo que você colocou na sua rota de API
 const tools = [
   {
     id: 'brinca-ai',
@@ -36,25 +36,25 @@ const tools = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="min-h-screen bg-transparent"> {/* bg-transparent pois o fundo vem do layout */}
+      
       {/* HERO SECTION */}
       <section className="text-center py-20 md:py-28 px-4">
-        <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tight">
+        <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tight drop-shadow-sm">
           Ação Leve
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
           Micro-SaaS brasileiros inteligentes.<br />
-          <span className="text-orange-500 font-bold">Simples. Rápidos. Diretos ao ponto.</span>
+          <span className="text-orange-600 font-bold">Simples. Rápidos. Diretos ao ponto.</span>
         </p>
       </section>
 
       {/* GRID DE FERRAMENTAS */}
-      <section className="max-w-7xl mx-auto px-4 pb-24">
+      <section className="max-w-7xl mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {tools
             .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
             .map((tool) => {
-              // Monta a URL da imagem dinamicamente baseada no ID
               const screenshotUrl = `${BLOB_BASE_URL}/${tool.id}.jpg`;
 
               return (
@@ -67,8 +67,8 @@ export default function HomePage() {
                   <div
                     className={`relative flex flex-col h-full p-6 rounded-[2.5rem] border-2 transition-all duration-500 bg-white
                       ${tool.featured 
-                        ? 'border-orange-400 ring-8 ring-orange-50 shadow-2xl' 
-                        : 'border-gray-100 hover:border-orange-200 hover:shadow-xl'
+                        ? 'border-orange-400 ring-4 ring-orange-100 shadow-2xl scale-[1.02]' 
+                        : 'border-white/50 hover:border-orange-200 hover:shadow-xl'
                       }`}
                   >
                     {/* Badge */}
@@ -87,7 +87,7 @@ export default function HomePage() {
                         alt={`Preview do ${tool.title}`}
                         fill
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                        unoptimized // Força o Next.js a sempre pegar a versão mais recente do Blob
+                        unoptimized={true}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
@@ -114,12 +114,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER SUBTIL */}
-      <footer className="text-center py-12 border-t border-gray-100 bg-white">
-        <p className="text-gray-400 font-medium">
+      {/* ÁREA DE ANÚNCIO (Estratégico: Fim da lista) */}
+      <section className="max-w-4xl mx-auto px-4 mb-8">
+         {/* Quando tiver o ID real do AdSense, troque aqui */}
+         <AdUnit slotId="1234567890" />
+      </section>
+
+      {/* TEXTO DE FECHAMENTO (Substituto do Footer inline duplicado) */}
+      <div className="text-center py-8 border-t border-white/20">
+        <p className="text-gray-600 font-medium">
           Explorando novas possibilidades toda semana · 🇧🇷
         </p>
-      </footer>
+      </div>
     </div>
   );
 }

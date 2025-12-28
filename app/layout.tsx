@@ -3,13 +3,15 @@
 // 1. Importações do Next.js e Estilos
 import type { Metadata, Viewport } from 'next';
 import { Inter } from "next/font/google";
+import Script from 'next/script'; // <--- NOVO: Para carregar AdSense otimizado
 import "./globals.css";
 
 // 2. Componentes Internos
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SessionProviderWrapper } from "@/components/auth/SessionProviderWrapper";
-import { AutoLoginTrigger } from "@/components/auth/AutoLoginTrigger"; // <--- NOVO
+import { AutoLoginTrigger } from "@/components/auth/AutoLoginTrigger";
+import { CookieConsent } from "@/components/privacy/CookieConsent"; // <--- NOVO: Banner LGPD
 import { GtmScript } from "@/components/telemetry/GtmScript";
 
 // 3. Configurações
@@ -17,7 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID ?? "";
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? null;
 
-// 4. Definição da Viewport (Separada do Metadata no Next.js 14+)
+// 4. Definição da Viewport
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -34,7 +36,6 @@ export const metadata: Metadata = {
   description: "Ferramentas leves e inteligentes para produtividade digital. Micro-SaaS brasileiros sem frescura.",
   metadataBase: new URL("https://www.acaoleve.com"),
   
-  // Configuração condicional do AdSense
   ...(ADSENSE_PUB_ID && {
     other: {
       "google-adsense-account": ADSENSE_PUB_ID,
@@ -64,26 +65,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}
         suppressHydrationWarning
       >
-        {/* Google Tag Manager (Carregamento prioritário) */}
+        {/* Google Tag Manager */}
         {GTM_ID && <GtmScript gtmId={GTM_ID} />}
+
+        {/* Script do Google AdSense (Otimizado) */}
+        {ADSENSE_PUB_ID && (
+          <Script
+            id="adsense-init"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUB_ID}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        )}
 
         <SessionProviderWrapper>
           
-          {/* AUTO LOGIN: Verifica se é o primeiro acesso e redireciona.
-            Precisa estar dentro do SessionProviderWrapper.
-          */}
           <AutoLoginTrigger />
 
           <Header />
 
-          {/* MAIN: O 'flex-grow' garante que o conteúdo empurre o footer 
-            para baixo se a página tiver pouco conteúdo.
-          */}
           <main className="w-full max-w-7xl mx-auto px-6 py-10 md:px-8 md:py-16 flex-grow pb-20 sm:pb-24">
             {children}
           </main>
 
           <Footer />
+
+          {/* Banner de Cookies (Obrigatório para AdSense) */}
+          <CookieConsent />
           
         </SessionProviderWrapper>
       </body>

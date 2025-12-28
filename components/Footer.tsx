@@ -1,104 +1,111 @@
-"use client";
+//src/components/Footer.tsx
+
+'use client';
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Twitter, Mail } from "lucide-react";
+import { Twitter, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
-  const [isNearBottom, setIsNearBottom] = useState(false);
-
-  useEffect(() => {
-  const handle = () => {
-    const total = document.documentElement.scrollHeight;
-    const vh = window.innerHeight;
-
-    if (total <= vh * 1.5) {
-      setIsNearBottom(true);
-      return;
-    }
-
-    const ratio = window.innerWidth < 768 ? 0.78 : 0.88;
-    const threshold = total * (1 - ratio);
-
-    const near = vh + window.scrollY >= total - threshold;
-    setIsNearBottom(near);
-  };
-
-  handle();
-  window.addEventListener("scroll", handle, { passive: true });
-  window.addEventListener("resize", handle);
-
-  return () => {
-    window.removeEventListener("scroll", handle);
-    window.removeEventListener("resize", handle);
-  };
-}, []);
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-40 border-t bg-white/90 backdrop-blur-lg transition-all duration-500 ease-out">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Altura dinâmica por breakpoint */}
-        <div
-          className={`
-            py-2
-            ${isNearBottom ? "md:py-10 sm:py-6" : "md:py-2 sm:py-2"}
-            transition-all duration-500
-          `}
-        >
-          {/* CTA expansivo — só aparece no final */}
-          {isNearBottom && (
-            <div className="text-center mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-2">
-                Pronto para a Ação Leve?
-              </h3>
-              <p className="text-sm md:text-base text-gray-600 mb-4 hidden sm:block">
-                Siga a jornada #BuildInPublic e veja tudo sendo construído do zero
-              </p>
-              <div className="flex justify-center gap-6">
-                <Link
-                  href="https://x.com/AcaoLeve"
-                  target="_blank"
-                  className="text-gray-600 hover:text-red-500 transition"
-                >
-                  <Twitter size={22} className="sm:size-26" />
-                </Link>
-                <Link
-                  href="mailto:contato@acaoleve.com"
-                  className="text-gray-600 hover:text-red-500 transition"
-                >
-                  <Mail size={22} className="sm:size-26" />
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {/* Linha base sempre visível — super compacta */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/logo-acaoleve.png"
-                width={18}
-                height={18}
-                alt="Ação Leve"
-                className="rounded"
-              />
-              <span>© {new Date().getFullYear()} Ação Leve</span>
-            </div>
-
-            <div className="flex gap-4">
-              <Link href="/politica-de-privacidade" className="hover:text-gray-900 transition">
-                Política
-              </Link>
-              <Link href="/termos-de-uso" className="hover:text-gray-900 transition">
-                Termos
-              </Link>
-              <Link href="/contato" className="hover:text-gray-900 transition">
-                Contato
-              </Link>
-            </div>
+    <footer className="bg-white border-t border-gray-100 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        
+        {/* COLUNA 1: Marca e Missão */}
+        <div className="md:col-span-1 space-y-4">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo-acaoleve.png"
+              width={32}
+              height={32}
+              alt="Logo Ação Leve"
+              className="rounded-lg"
+            />
+            <span className="font-black text-xl text-gray-900">Ação Leve</span>
+          </div>
+          <p className="text-gray-500 text-sm leading-relaxed">
+            Estúdio de Micro-SaaS focado em simplicidade. Criamos ferramentas que respeitam seu tempo e seus dados.
+          </p>
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <MapPin size={14} />
+            <span>Brasil 🇧🇷</span>
           </div>
         </div>
+
+        {/* COLUNA 2: Navegação */}
+        <div>
+          <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wider">Explorar</h3>
+          <ul className="space-y-3 text-sm text-gray-600">
+            <li>
+              <Link href="/" className="hover:text-orange-600 transition-colors">
+                Catálogo de Ferramentas
+              </Link>
+            </li>
+            <li>
+              <Link href="/sobre" className="hover:text-orange-600 transition-colors">
+                Sobre a Equipe
+              </Link>
+            </li>
+            <li>
+              <Link href="https://x.com/AcaoLeve" target="_blank" className="hover:text-orange-600 transition-colors flex items-center gap-2">
+                <Twitter size={14} />
+                <span>Build in Public</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* COLUNA 3: Legal (CRUCIAL PARA ADSENSE) */}
+        <div>
+          <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wider">Legal</h3>
+          <ul className="space-y-3 text-sm text-gray-600">
+            <li>
+              <Link href="/politica-de-privacidade" className="hover:text-orange-600 transition-colors">
+                Política de Privacidade
+              </Link>
+            </li>
+            <li>
+              <Link href="/termos-de-uso" className="hover:text-orange-600 transition-colors">
+                Termos de Uso
+              </Link>
+            </li>
+            <li>
+              <button className="hover:text-orange-600 transition-colors text-left" onClick={() => {
+                // Lógica para reabrir banner de cookies se necessário (opcional)
+                localStorage.removeItem('acaoleve_cookie_consent');
+                window.location.reload();
+              }}>
+                Preferências de Cookies
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* COLUNA 4: Contato */}
+        <div>
+          <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wider">Suporte</h3>
+          <ul className="space-y-3 text-sm text-gray-600">
+            <li>
+              <Link href="/contato" className="hover:text-orange-600 transition-colors">
+                Central de Ajuda
+              </Link>
+            </li>
+            <li>
+              <Link href="mailto:contato@acaoleve.com" className="hover:text-orange-600 transition-colors flex items-center gap-2">
+                <Mail size={14} />
+                <span>contato@acaoleve.com</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* RODAPÉ DO RODAPÉ */}
+      <div className="max-w-7xl mx-auto px-6 border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
+        <p>© {currentYear} Ação Leve. Todos os direitos reservados.</p>
+        <p>Desenvolvido com Next.js & Vercel</p>
       </div>
     </footer>
   );

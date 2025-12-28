@@ -1,27 +1,37 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ⏳ SOLUÇÃO DO ERRO DE BUILD:
+  // Aumenta o tempo limite de geração estática para 3 minutos (180s).
+  // Isso resolve o erro "Static page generation timeout" ao baixar imagens do Blob.
+  staticPageGenerationTimeout: 180,
 
-  // 🔍 Ajuda a detectar problemas silenciosos
+  // 🔍 Ajuda a detectar problemas silenciosos no React
   reactStrictMode: true,
 
-  // 📸 Permite imagens externas (Google, GitHub, etc.)
+  // 🛡️ SEGURANÇA: Remove o cabeçalho "X-Powered-By: Next.js"
+  // Dificulta que hackers saibam qual tecnologia você usa.
+  poweredByHeader: false,
+
+  // 📦 Otimização de produção
+  productionBrowserSourceMaps: false, // Desabilita source maps (menor bundle, código fonte oculto)
+
+  // 📸 Configuração de Imagens (Otimizada)
   images: {
+    // Formatos modernos (Google ama isso para SEO)
+    formats: ['image/avif', 'image/webp'],
+    
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com', // Google OAuth image
+        hostname: 'lh3.googleusercontent.com', // Google User
       },
       {
         protocol: 'https',
-        hostname: 'avatars.githubusercontent.com', // GitHub OAuth image
+        hostname: 'avatars.githubusercontent.com', // GitHub User
       },
       {
         protocol: 'https',
-        hostname: 'platform-lookaside.fbsbx.com', // Facebook image (caso use no futuro)
-      },
-      {
-        protocol: 'https',
-        hostname: 'pbs.twimg.com', // Twitter / X images
+        hostname: 'pbs.twimg.com', // X/Twitter
       },
       {
         protocol: 'https',
@@ -29,37 +39,40 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'keuabft7jwxlysoy.public.blob.vercel-storage.com', // O SEU HOSTNAME DO BLOB
-        port: '',
-        pathname: '/**',
-      }
+        hostname: 'keuabft7jwxlysoy.public.blob.vercel-storage.com', // SEU VERCEL BLOB (Crucial)
+      },
     ],
   },
 
-  // 🚀 Melhor desempenho para aplicações SaaS hospedadas na Vercel
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '2mb',
-    },
-  },
-
-  // 🔁 Rewrites (caso queira API Proxy no futuro)
-  async rewrites() {
+  // 🔒 Cabeçalhos de Segurança HTTP (Ótimo para aprovação AdSense)
+  async headers() {
     return [
-      // Exemplo: redirecionar /api/external → API externa (ainda vazio)
-      // {
-      //   source: "/api/external/:path*",
-      //   destination: "https://api.exemplo.com/:path*",
-      // },
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN' // Evita que outros sites coloquem o seu em um iframe
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin'
+          },
+        ],
+      },
     ];
-  },
-
-  // 📦 Desabilita sourcemaps de produção (segurança extra)
-  productionBrowserSourceMaps: false,
-
-  // 📌 Permite usar env vars públicas corretamente
-  env: {
-    NEXT_PUBLIC_APP_NAME: "Ação Leve Portal",
   },
 };
 
