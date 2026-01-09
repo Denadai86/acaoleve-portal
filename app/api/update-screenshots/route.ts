@@ -6,7 +6,8 @@ export const dynamic = 'force-dynamic';
 const TOOLS = [
   { id: 'policygen', url: 'https://policygen.acaoleve.com' },
   { id: 'refeita-ai', url: 'https://refeita-ai.acaoleve.com' },
-  { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com' }
+  { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com' },
+  { id: 'fechou-ai', url: 'https://fechou-ai.acaoleve.com' }
 ];
 
 export async function GET(request: Request) {

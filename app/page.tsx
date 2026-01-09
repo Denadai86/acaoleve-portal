@@ -9,12 +9,20 @@ const BLOB_BASE_URL = "https://keuabft7jwxlysoy.public.blob.vercel-storage.com/s
 // 2. CONFIGURAÇÃO CENTRALIZADA
 const tools = [
   {
+    id: 'fechou-ai',
+    title: 'Fechou-AI',
+    description: 'Crie orçamentos por voz com apoio de IA.',
+    href: 'https://fechou-ai.acaoleve.com',
+    badge: 'LANÇAMENTO',
+    featured: true,
+  },
+  {
     id: 'brinca-ai',
     title: 'Brinca-AI',
     description: 'IA que cria brincadeiras e atividades mágicas para crianças de todas as idades.',
     href: 'https://brinca-ai.acaoleve.com',
-    badge: 'LANÇAMENTO',
-    featured: true,
+    badge: null,
+    featured: false,
   },
   {
     id: 'refeita-ai',

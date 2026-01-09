@@ -5,6 +5,7 @@ const SUBDOMAINS = [
   'brinca-ai',
   'refeita-ai',
   'policygen',
+  'fechou-ai',
   // ← quando lançar nova SaaS, só adiciona o prefixo aqui (1 linha!)
   // 'nota-ai',
   // 'fatura-ai',
