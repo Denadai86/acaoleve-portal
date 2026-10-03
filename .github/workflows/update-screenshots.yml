@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Call Screenshot API
         run: |
-          curl -X GET "https://acaoleve.com/api/update-screenshots"
+          curl -X GET "https://acaoleve.com.br/api/update-screenshots"

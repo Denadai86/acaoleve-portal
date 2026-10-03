@@ -1,30 +1,172 @@
-/* app/globals.css (CORREÇÃO DE SINTAXE) */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind CSS v4 theme directives are valid at-rules. */
+/* csslint-disable unknownAtRules */
+/* stylelint-disable at-rule-no-unknown */
+@custom-variant dark (&:is(.dark *));
+/* stylelint-enable at-rule-no-unknown */
+/* csslint-enable unknownAtRules */
 
-/* ---------------------------
-   Estilos base e reset
----------------------------- */
+/* ─── TOKENS ─────────────────────────────────────────────
+   Site 100% escuro. Uma única fonte de variáveis: os tokens do
+   shadcn já apontam para a paleta da marca (laranja #F97316). */
+:root {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #111113;
+  --popover-foreground: #fafafa;
+  --primary: #f97316;
+  --primary-foreground: #ffffff;
+  --secondary: #1c1c1f;
+  --secondary-foreground: #fafafa;
+  --muted: #1c1c1f;
+  --muted-foreground: #71717a;
+  --accent: #1c1c1f;
+  --accent-foreground: #fafafa;
+  --destructive: #ef4444;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #f97316;
+  --radius: 0.75rem;
 
-/* Aplica o comportamento de scroll suave e base de texto */
-html {
-  scroll-behavior: smooth;
-  @apply text-gray-800 antialiased;
+  --brand: #f97316;
+  --brand-hover: #ea580c;
 }
 
-/* Fundo Fixo (bg-fixed): Garante que o gradiente do layout.tsx fique estático */
-body { 
-  background-attachment: fixed !important;
+@theme inline {
+  /* fontes carregadas no layout.tsx (--font-figtree / --font-syne) */
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  /* --font-display: var(--font-syne), var(--font-figtree), ui-sans-serif, system-ui, sans-serif; */
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-elevated: #1c1c1f;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Remove highlight feio em mobile (toque) */
-* {
-  -webkit-tap-highlight-color: transparent;
+/* animate-fadeIn (usado antes via tailwind.config.ts) */
+@theme {
+  --animate-fadeIn: fadeInUp 0.5s ease-out forwards;
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
 }
 
-/* Melhor aparência dos placeholders */
-::placeholder {
-  @apply text-gray-400 opacity-100;
+/* ─── BASE ───────────────────────────────────────────── */
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+/* Textura de grão sutil */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: overlay;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+::selection { background: rgba(249, 115, 22, 0.28); color: #fafafa; }
+::placeholder { color: #52525b; opacity: 1; }
+
+/* ─── UTILITÁRIOS LEGADOS ─────────────────────────────────
+   Mantidos para não quebrar páginas que ainda os usam
+   (login, sobre, termos...). Migre para classes Tailwind aos poucos. */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pulse-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+.animate-fade-up { animation: fadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in { animation: fadeIn 0.5s ease both; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+.text-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.btn-orange {
+  background: #f97316;
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+.btn-orange:hover {
+  background: #ea580c;
+  box-shadow: 0 0 35px -5px rgba(249, 115, 22, 0.55);
+  transform: scale(1.03);
+}
+.btn-orange:active { transform: scale(0.97); }
+.card-dark {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-dark:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 55px -25px rgba(249, 115, 22, 0.45);
+  transform: translateY(-4px);
 }

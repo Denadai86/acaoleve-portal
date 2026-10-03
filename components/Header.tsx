@@ -1,93 +1,109 @@
-// components/Header.tsx (REFATORADO COM EFEITO RETRÁTIL)
+// components/Header.tsx
+'use client';
 
-"use client";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+import { UserMenu } from '@/components/auth/UserMenu';
+import { cn } from '@/lib/utils';
 
-import { useState, useEffect } from 'react'; // ⚡ Importação de estado e efeito
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { UserMenu } from "@/components/auth/UserMenu";
+const NAV = [
+  { href: '/#ferramentas', label: 'Ferramentas', highlight: false },
+  { href: '/servicos', label: 'Serviços', highlight: true },
+  { href: '/sobre', label: 'Sobre', highlight: false },
+];
 
 export default function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  
-  // ⚡ Estado para monitorar a rolagem
   const [isScrolled, setIsScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  // ⚡ Efeito para monitorar o scroll
   useEffect(() => {
-    const handleScroll = () => {
-      // Define isScrolled como true se o scrollY for maior que 30px (threshold baixo para ser responsivo)
-      const scrolled = window.scrollY > 30;
-      if (scrolled !== isScrolled) {
-        setIsScrolled(scrolled);
-      }
-    };
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isScrolled]);
-
-  // ⚡ 1. Classes Dinâmicas do Header Wrapper
-  // py-3 (original) vs py-0.5 (encolhido)
-  const headerClasses = `
-    bg-white/90 backdrop-blur sticky top-0 z-40 border-b border-gray-100 
-    transition-all duration-300 ease-in-out
-    ${isScrolled ? 'py-0.5 shadow-lg' : 'py-3 shadow-sm'} 
-  `;
-  
-  // ⚡ 2. Tamanho Dinâmico do Logo (36px vs 30px)
-  const logoSize = isScrolled ? 22 : 36; 
+  const linkClass = (item: (typeof NAV)[number]) =>
+    cn(
+      'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+      item.highlight
+        ? 'text-brand hover:text-brand-hover'
+        : pathname === item.href
+          ? 'text-foreground'
+          : 'text-muted-foreground hover:text-foreground',
+    );
 
   return (
-    <header className={headerClasses}> {/* Aplica as classes dinâmicas */}
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-        
-        {/* ESQUERDA */}
-        <div className="flex items-center gap-4">
-
-          {!isHome && (
-            <a
-              href="https://www.acaoleve.com"
-              className="flex items-center gap-1 text-primary hover:text-blue-700 text-sm font-medium transition"
-            >
-              <ArrowLeft size={16} />
-              Voltar
-            </a>
-          )}
-
-          <Link href="/" className="flex items-center gap-3 group">
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b transition-all duration-300',
+        isScrolled || open
+          ? 'border-border bg-background/90 py-2.5 backdrop-blur-xl'
+          : 'border-transparent bg-transparent py-4',
+      )}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6">
+        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
+          <span
+            className={cn(
+              'relative overflow-hidden rounded-xl transition-all duration-300',
+              isScrolled ? 'size-7' : 'size-9',
+            )}
+          >
             <Image
               src="/logo-acaoleve.png"
-              // ⚡ Tamanho dinâmico
-              width={logoSize}
-              height={logoSize}
+              fill
               alt="Logo Ação Leve"
-              loading="lazy"
-              decoding="async"
-              // ⚡ Adiciona transição para o efeito de encolhimento
-              className="rounded-xl object-contain transition-all duration-300 ease-in-out group-hover:scale-105"
-              sizes="(max-width: 768px) 30px, 36px"
+              sizes="36px"
+              className="object-contain transition-transform duration-200 group-hover:scale-110"
             />
+          </span>
+          <span className="font-display text-lg font-bold">Ação Leve</span>
+        </Link>
 
-            <span className={`
-                text-xl font-semibold text-gray-800 group-hover:text-primary transition-all duration-300 ease-in-out 
-                hidden sm:inline
-                ${isScrolled ? 'text-base' : 'text-xl'} {/* ⚡ Diminui a fonte */}
-            `}>
-              Ação Leve
-            </span>
-          </Link>
+        <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
+          {NAV.map((item) => (
+            <Link key={item.href} href={item.href} className={linkClass(item)}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <UserMenu isScrolled={isScrolled} />
+          <button
+            type="button"
+            aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid size-9 place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-
-        {/* DIREITA */}
-        {/* ⚡ AJUSTE AQUI: Passando o estado isScrolled para o UserMenu */}
-        <UserMenu isScrolled={isScrolled} />
       </div>
+
+      {open && (
+        <nav
+          aria-label="Principal (mobile)"
+          className="mx-auto mt-3 flex max-w-7xl flex-col gap-1 px-6 pb-3 md:hidden"
+        >
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={linkClass(item)}
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

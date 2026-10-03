@@ -1,13 +1,15 @@
 import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'force-dynamic';
 
 const TOOLS = [
-  { id: 'policygen', url: 'https://policygen.acaoleve.com' },
-  { id: 'refeita-ai', url: 'https://refeita-ai.acaoleve.com' },
-  { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com' },
-  { id: 'fechou-ai', url: 'https://fechou-ai.acaoleve.com' }
+  { id: 'policygen', url: 'https://policygen.acaoleve.com.br' },
+  { id: 'refeita-ai', url: 'https://refeita-ai.acaoleve.com.br' },
+  { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com.br' },
+  { id: 'fechou-ai', url: 'https://fechou-ai.acaoleve.com.br' },
+  { id: 'nutripet-ai', url: 'https://nutripet-ai.acaoleve.com.br' },
+  { id: 'seu-evento', url: 'https://seu-evento.acaoleve.com.br' }
 ];
 
 export async function GET(request: Request) {

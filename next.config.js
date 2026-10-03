@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  
+  //p  cacheComponents: true,
+  
   // ⏳ SOLUÇÃO DO ERRO DE BUILD:
   // Aumenta o tempo limite de geração estática para 3 minutos (180s).
   // Isso resolve o erro "Static page generation timeout" ao baixar imagens do Blob.

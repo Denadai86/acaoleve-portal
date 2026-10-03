@@ -1,0 +1,2673 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.github/
+  workflow/
+    update-screenshots.yml
+app/
+  api/
+    auth/
+      [...nextauth]/
+        route.ts
+    sitemap/
+      entries/
+        route.ts
+    update-screenshots/
+      route.ts
+  contato/
+    page.tsx
+  login/
+    page.tsx
+  politica-de-cookies/
+    page.tsx
+  politica-de-privacidade/
+    page.tsx
+  robot/
+    robot.ts
+  sobre/
+    page.tsx
+  termos-de-uso/
+    page.tsx
+  globals.css
+  layout.tsx
+  page.tsx
+  sitemap.ts
+components/
+  ads/
+    AdUnit.tsx
+  auth/
+    AutoLoginTrigger.tsx
+    SessionProviderWrapper.tsx
+    UserMenu.tsx
+  privacy/
+    CookieConsent.tsx
+  telemetry/
+    GtmScript.tsx
+  ui/
+    badge.tsx
+    button.tsx
+  Footer.tsx
+  Header.tsx
+  LeadCaptureForm.tsx
+lib/
+  auth.ts
+  utils.ts
+public/
+  android-chrome-192x192.png
+  android-chrome-512x512.png
+  apple-touch-icon.png
+  favicon-16x16.png
+  favicon-32x32.png
+  file.svg
+  globe.svg
+  logo-acaoleve.png
+  next.svg
+  vercel.svg
+  window.svg
+types/
+  gtm.d.ts
+  next-auth.d.ts
+.gitignore
+.stylelintrc.json
+components.json
+eslint.config.mjs
+Logo_Novo.png
+next.config.js
+package.json
+postcss.config.js
+proxy.ts
+README.md
+tailwind.config.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="components/ui/button.tsx">
+import { Button as ButtonPrimitive } from "@base-ui/react/button"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils""
+
+const buttonVariants = cva(
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        outline:
+          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+        ghost:
+          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+        destructive:
+          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default:
+          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        icon: "size-8",
+        "icon-xs":
+          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm":
+          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+        "icon-lg": "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+function Button({
+  className,
+  variant = "default",
+  size = "default",
+  ...props
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+  return (
+    <ButtonPrimitive
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, buttonVariants }
+</file>
+
+<file path=".stylelintrc.json">
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-tailwindcss"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null
+  }
+}
+</file>
+
+<file path="components.json">
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "rtl": false,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
+}
+</file>
+
+<file path="proxy.ts">
+export { auth as proxy } from "@/lib/auth"
+
+export const config = {
+  matcher: ["/dashboard/:path*"], // Adicione as rotas que quer proteger
+}
+</file>
+
+<file path=".github/workflow/update-screenshots.yml">
+name: Update Screenshots Weekly
+
+on:
+  schedule:
+    # Roda toda segunda-feira às 06:00 AM UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch: # Permite que você clique num botão e rode manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Screenshot API
+        run: |
+          curl -X GET "https://acaoleve.com/api/update-screenshots"
+</file>
+
+<file path="app/login/page.tsx">
+//src/app/login/page.tsx
+
+'use client'
+
+import { signIn } from "next-auth/react"
+
+export default function LoginPage() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <button
+        onClick={() => signIn("google")}
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg"
+      >
+        Entrar com Google
+      </button>
+    </div>
+  )
+}
+</file>
+
+<file path="app/politica-de-cookies/page.tsx">
+import type { Metadata } from 'next';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+export const metadata: Metadata = {
+  title: 'Política de Cookies | Ação Leve',
+  description: 'Entenda como utilizamos cookies para melhorar sua experiência no Portal Ação Leve.',
+};
+
+export default function CookiePolicyPage() {
+  return (
+    <article className="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+      <header className="mb-10 border-b border-gray-100 pb-8">
+        <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+          Política de Cookies
+        </h1>
+        <p className="text-gray-500 font-medium">
+          Última atualização: <span className="text-orange-600">28 de dezembro de 2025</span>
+        </p>
+      </header>
+
+      <div className="space-y-8 text-gray-600 leading-relaxed text-lg">
+        <p>
+          Esta Política de Cookies explica o que são cookies e como o <strong>Portal Ação Leve</strong> os utiliza. Ao continuar a navegar em nosso Portal, você concorda com o uso de cookies conforme descrito nesta política.
+        </p>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">1. O Que São Cookies?</h2>
+          <p>
+            Cookies são pequenos arquivos de texto armazenados em seu computador ou dispositivo móvel quando você visita um site. Eles são amplamente utilizados para fazer com que os sites funcionem com eficiência e fornecer informações aos proprietários.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Como Usamos Cookies</h2>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Garantir o funcionamento correto do Portal.</li>
+            <li>Analisar como nosso Portal é utilizado.</li>
+            <li>Personalizar sua experiência.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Categorias de Cookies</h2>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-4 rounded-xl">
+              <h3 className="font-bold text-gray-900">Cookies Essenciais</h3>
+              <p className="text-sm">Necessários para recursos fundamentais, como áreas seguras. Sem eles, o site não funciona.</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-xl">
+              <h3 className="font-bold text-gray-900">Cookies Funcionais</h3>
+              <p className="text-sm">Lembram suas escolhas (nome de usuário, idioma) para melhorar a experiência.</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-xl">
+              <h3 className="font-bold text-gray-900">Cookies de Desempenho</h3>
+              <p className="text-sm">Coletam informações anônimas sobre como você usa o site (ex: páginas mais visitadas).</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cookies de Terceiros</h2>
+          <p className="mb-4">
+            Utilizamos serviços de terceiros que também podem definir cookies, como o <strong>Google Analytics</strong> e <strong>Google AdSense</strong>.
+          </p>
+          <p className="text-sm italic">
+            Não controlamos esses cookies. Consulte as políticas de privacidade desses terceiros para mais informações.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Gerenciamento de Cookies</h2>
+          <p>
+            Você pode configurar seu navegador para recusar todos os cookies ou alertar quando um cookie for enviado. No entanto, algumas partes do Portal podem não funcionar corretamente sem eles.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Retenção e Consentimento</h2>
+          <p className="mb-4">
+            A retenção segue a política geral de <strong>1 ano</strong>. Solicitamos seu consentimento conforme a LGPD, exceto para cookies estritamente necessários.
+          </p>
+        </section>
+
+        <section className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">9. Contato</h2>
+          <p>Dúvidas sobre Cookies?</p>
+          <a href="mailto:contato@acaoleve.com" className="text-orange-600 font-bold hover:underline mt-2 inline-block">
+            contato@acaoleve.com
+          </a>
+        </section>
+      </div>
+    </article>
+  );
+}
+</file>
+
+<file path="app/sobre/page.tsx">
+import type { Metadata } from 'next';
+import Image from 'next/image';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+export const metadata: Metadata = {
+  title: 'Sobre Nós | Ação Leve',
+  description: 'Conheça a missão da Ação Leve em simplificar a produtividade digital com Micro-SaaS brasileiros.',
+};
+
+export default function AboutPage() {
+  return (
+    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+      {/* Cabeçalho */}
+      <div className="bg-gray-900 text-white py-16 px-8 text-center">
+        <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
+          Simplificando o Digital
+        </h1>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          Nossa missão é criar ferramentas que resolvem problemas complexos com 
+          soluções leves, rápidas e diretas ao ponto.
+        </p>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-8 py-16 space-y-16">
+        
+        {/* Nossa História */}
+        <section className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Quem Somos</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              A <strong>Ação Leve</strong> nasceu da frustração com softwares inchados, caros e complexos. 
+              Acreditamos que a tecnologia deve trabalhar para você, e não o contrário.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Somos um estúdio de <strong>Micro-SaaS</strong> focado em desenvolver pequenas ferramentas 
+              poderosas que fazem uma única coisa, mas a fazem com excelência.
+            </p>
+          </div>
+          <div className="relative h-64 bg-gradient-to-tr from-orange-100 to-purple-100 rounded-2xl flex items-center justify-center">
+            <span className="text-6xl">🚀</span>
+          </div>
+        </section>
+
+        {/* Nossos Valores */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Nossos Pilares</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="text-orange-600 text-2xl mb-3">⚡</div>
+              <h3 className="font-bold text-gray-900 mb-2">Velocidade</h3>
+              <p className="text-sm text-gray-600">Nossas ferramentas carregam instantaneamente. Sem telas de loading infinitas.</p>
+            </div>
+            <div className="p-6 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="text-orange-600 text-2xl mb-3">🛡️</div>
+              <h3 className="font-bold text-gray-900 mb-2">Privacidade</h3>
+              <p className="text-sm text-gray-600">Seus dados são seus. Adotamos práticas de 'Privacy by Design' em tudo.</p>
+            </div>
+            <div className="p-6 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="text-orange-600 text-2xl mb-3">🎯</div>
+              <h3 className="font-bold text-gray-900 mb-2">Foco</h3>
+              <p className="text-sm text-gray-600">Resolvemos um problema de cada vez. Sem funcionalidades inúteis.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="text-center border-t border-gray-100 pt-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Pronto para acelerar?</h2>
+          <p className="text-gray-600 mb-8">
+            Explore nossas ferramentas gratuitas e premium.
+          </p>
+          <a href="/" className="inline-block px-8 py-3 bg-orange-600 text-white font-bold rounded-full hover:bg-orange-700 transition">
+            Ver Ferramentas
+          </a>
+        </section>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="components/ads/AdUnit.tsx">
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+type AdUnitProps = {
+  slotId: string; // O ID do bloco de anúncio que você cria no painel do AdSense
+  format?: 'auto' | 'fluid' | 'rectangle';
+  layoutKey?: string; // Para In-feed ads
+  className?: string;
+};
+
+export function AdUnit({ slotId, format = 'auto', layoutKey, className = '' }: AdUnitProps) {
+  const adRef = useRef<HTMLModElement>(null);
+  const [adLoaded, setAdLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      // Verifica se o script do AdSense já carregou no layout
+      if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
+        (window as any).adsbygoogle.push({});
+        setAdLoaded(true);
+      }
+    } catch (err) {
+      console.error('AdSense error:', err);
+    }
+  }, []);
+
+  // Em desenvolvimento, mostramos um placeholder para você ver onde o anúncio ficaria
+  if (process.env.NODE_ENV === 'development') {
+    return (
+      <div className={`bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 font-mono text-xs p-4 rounded-lg my-6 ${className}`} style={{ minHeight: '280px' }}>
+        Anúncio AdSense (Slot: {slotId})
+      </div>
+    );
+  }
+
+  return (
+    <div className={`overflow-hidden my-8 flex justify-center ${className}`}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block', width: '100%' }}
+        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_PUB_ID}
+        data-ad-slot={slotId}
+        data-ad-format={format}
+        data-full-width-responsive="true"
+        {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
+      />
+    </div>
+  );
+}
+</file>
+
+<file path="components/auth/AutoLoginTrigger.tsx">
+'use client';
+
+import { useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+
+export function AutoLoginTrigger() {
+  const { status } = useSession();
+
+  useEffect(() => {
+    // 1. Só rodamos se não estivermos autenticados e nem carregando
+    if (status === 'loading' || status === 'authenticated') return;
+
+    // 2. Verificamos se é a primeira vez (usando localStorage)
+    const hasVisited = localStorage.getItem('acaoleve_has_visited');
+
+    if (!hasVisited) {
+      // 3. Marcamos que já visitou para não rodar na próxima vez (F5)
+      localStorage.setItem('acaoleve_has_visited', 'true');
+
+      // 4. Disparamos o login (Redirecionamento, pois popup automático seria bloqueado)
+      // callbackUrl: '/' garante que ele volta para a home depois
+      signIn('google', { callbackUrl: '/' }); 
+    }
+  }, [status]);
+
+  // Este componente não renderiza nada visualmente
+  return null;
+}
+</file>
+
+<file path="components/auth/SessionProviderWrapper.tsx">
+"use client";
+
+import { SessionProvider } from "next-auth/react";
+
+export function SessionProviderWrapper({ children }: { children: React.ReactNode }) {
+  return <SessionProvider>{children}</SessionProvider>;
+}
+</file>
+
+<file path="components/privacy/CookieConsent.tsx">
+//src/components/privacy/CookieConsent.tsx
+
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+export function CookieConsent() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Verifica se já aceitou
+    const consent = localStorage.getItem('acaoleve_cookie_consent');
+    if (!consent) {
+      // Delay pequeno para não assustar o usuário assim que entra
+      const timer = setTimeout(() => setShow(true), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const acceptCookies = () => {
+    localStorage.setItem('acaoleve_cookie_consent', 'true');
+    setShow(false);
+  };
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] animate-in slide-in-from-bottom duration-500">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="text-gray-600 text-sm md:text-base text-center md:text-left">
+          <p>
+            Nós usamos cookies para melhorar sua experiência e analisar o tráfego. 
+            Ao continuar navegando, você concorda com nossa{' '}
+            <Link href="/politica-de-privacidade" className="text-orange-600 hover:underline font-medium">
+              Política de Privacidade
+            </Link>.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <button 
+            onClick={acceptCookies}
+            className="px-6 py-2 bg-gray-900 text-white rounded-full font-bold text-sm hover:bg-gray-800 transition shadow-lg"
+          >
+            Aceitar e Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="components/ui/badge.tsx">
+// components/ui/badge.tsx
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {}
+
+function Badge({ className, variant, ...props }: BadgeProps) {
+  return (
+    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+  )
+}
+
+export { Badge, badgeVariants }
+</file>
+
+<file path="components/LeadCaptureForm.tsx">
+// src/components/LeadCaptureForm.tsx
+
+'use client';
+
+import { useState } from 'react';
+import { Send, Sparkles } from 'lucide-react'; // Ícones para dar vida ao componente
+
+// Simulação de uma Server Action para capturar o Lead (você a implementará depois)
+async function handleSubscribe(formData: FormData) {
+  // Lógica aqui: salvar e-mail no banco de dados, enviar para Mailchimp, etc.
+  const email = formData.get('email');
+  console.log(`E-mail capturado: ${email}`);
+  
+  // Simula o sucesso após um pequeno delay
+  await new Promise(resolve => setTimeout(resolve, 1500)); 
+  return { success: true };
+}
+
+export default function LeadCaptureForm() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  
+  const isPending = status === 'loading';
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isPending) return;
+
+    setStatus('loading');
+    const formData = new FormData(event.currentTarget);
+    const result = await handleSubscribe(formData); 
+    
+    if (result.success) {
+      setStatus('success');
+      setEmail(''); // Limpa o campo
+    } else {
+      setStatus('error');
+    }
+  }
+
+  // Se o e-mail foi enviado com sucesso, mostra uma mensagem de agradecimento
+  if (status === 'success') {
+    return (
+      <div className="max-w-xl mx-auto p-10 bg-white rounded-xl shadow-2xl border border-green-200 text-center transition-all duration-500">
+        <Sparkles className="h-12 w-12 text-green-500 mx-auto mb-4" />
+        <h3 className="text-2xl font-bold text-gray-800">Inscrição Confirmada!</h3>
+        <p className="mt-2 text-gray-600">Obrigado por se juntar à comunidade Ação Leve. Você receberá atualizações sobre novos Micro SaaS e a jornada #BuildInPublic.</p>
+      </div>
+    );
+  }
+
+  // Formulário padrão
+  return (
+    <div className="max-w-xl mx-auto">
+      {/* ⚡ APLICAÇÃO DO ESTILO "FLUTUANTE" */}
+      <div className="bg-white p-8 md:p-10 rounded-2xl shadow-2xl border border-gray-100 transition-all duration-300 hover:shadow-red-300/50">
+        
+        {/* Título e Descrição */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-gray-900 leading-tight">
+            Desbloqueie o Próximo Micro SaaS
+          </h2>
+          <p className="mt-3 text-lg text-gray-600">
+            Receba a estratégia e os bastidores de como lançamos produtos digitais lucrativos com a filosofia **Ação Leve**.
+          </p>
+        </div>
+
+        {/* Formulário de Inscrição */}
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="Seu melhor e-mail para não perder nada..."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isPending}
+            className="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 text-gray-800 transition-colors disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={isPending || email.length === 0}
+            className="flex items-center justify-center px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {isPending ? (
+              <span className="animate-spin mr-2">⚙️</span>
+            ) : (
+              <Send className="w-5 h-5 mr-2" />
+            )}
+            {isPending ? 'Enviando...' : 'Quero Acompanhar'}
+          </button>
+        </form>
+
+        {status === 'error' && (
+          <p className="mt-4 text-sm text-red-600 text-center">
+            Erro ao assinar. Tente novamente mais tarde.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="lib/utils.ts">
+export { cn } from "cn"
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="types/gtm.d.ts">
+// types/gtm.d.ts
+
+// Interface que define a estrutura básica de um evento que enviamos para o DataLayer
+interface GtmEvent {
+  event: string;
+  [key: string]: any; // Permite outras propriedades como 'page', 'user_id', etc.
+}
+
+// Declaração de módulo global para adicionar a propriedade 'dataLayer' ao objeto 'window'
+declare global {
+  interface Window {
+    dataLayer: GtmEvent[];
+  }
+}
+
+// Isso garante que este arquivo seja tratado como um módulo, mesmo que só tenha declarações globais.
+export {};
+</file>
+
+<file path="types/next-auth.d.ts">
+import NextAuth from "next-auth"
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string
+      name: string
+      email: string
+      image: string
+    }
+  }
+}
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import tailwind from "eslint-plugin-tailwindcss";
+import unicorn from "eslint-plugin-unicorn";
+import unusedImports from "eslint-plugin-unused-imports";
+
+/**
+ * Configuração ESLint completa para Next.js 15+ (Flat Config)
+ * Inclui: Next.js, TypeScript, Tailwind, Prettier, Import Sorting, etc.
+ */
+export default defineConfig([
+  js.configs.recommended,
+
+  // Configurações oficiais do Next.js
+  ...nextVitals,
+  ...nextTs,
+
+  // Ignora pastas padrão do Next.js
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "node_modules/**",
+    "public/**",
+    "*.config.js",
+    "*.config.mjs",
+    "next-env.d.ts",
+    ".env*",
+  ]),
+
+  // Configurações globais
+  {
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      next: {
+        rootDir: ".",
+      },
+      "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,
+          project: "./tsconfig.json",
+        },
+      },
+    },
+  },
+
+  // Plugins adicionais
+  {
+    plugins: {
+      import: importPlugin,
+      tailwindcss: tailwind,
+      unicorn: unicorn,
+      "unused-imports": unusedImports,
+    },
+    rules: {
+      // ====================== Regras Importantes ======================
+      "import/order": [
+        "error",
+        {
+          groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+          pathGroups: [{ pattern: "@/**", group: "internal", position: "after" }],
+        },
+      ],
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": ["warn", { vars: "all", varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
+
+      // Tailwind
+      "tailwindcss/classnames-order": "warn",
+      "tailwindcss/enforces-shorthand": "warn",
+      "tailwindcss/no-custom-classname": "off", // ajuste conforme necessário
+
+      // Unicorn (melhores práticas)
+      "unicorn/prefer-top-level-await": "error",
+      "unicorn/no-null": "off",
+      "unicorn/prevent-abbreviations": "off",
+
+      // React / Next.js
+      "react-hooks/exhaustive-deps": "warn",
+      "@next/next/no-img-element": "warn",
+
+      // Qualidade de código
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-unused-vars": "off", // controlado pelo unused-imports
+      "prefer-const": "error",
+      "no-var": "error",
+    },
+  },
+
+  // Regras específicas para arquivos TypeScript
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off", // já controlado pelo unused-imports
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/consistent-type-imports": "error",
+    },
+  },
+]);
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="app/api/sitemap/entries/route.ts">
+// acaoleve-portal/app/api/sitemap/entries/route.ts
+// ← essa rota vai ser chamada pelo sitemap dinâmico
+
+const SUBDOMAINS = [
+  'brinca-ai',
+  'refeita-ai',
+  'policygen',
+  'fechou-ai',
+  'seu-evento',
+  'nutripet-ai',
+  // ← quando lançar nova SaaS, só adiciona o prefixo aqui (1 linha!)
+  // 'nota-ai',
+  // 'fatura-ai',
+  // 'curriculo-ai',
+];
+
+export async function GET() {
+  const entries = SUBDOMAINS.map((sub) => ({
+    url: `https://${sub}.acaoleve.com`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }));
+
+  return Response.json(entries);
+}
+</file>
+
+<file path="app/contato/page.tsx">
+import type { Metadata } from 'next';
+import LeadCaptureForm from '@/components/LeadCaptureForm';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+export const metadata: Metadata = {
+  title: 'Contato e Suporte | Ação Leve',
+  description: 'Fale com nossa equipe de suporte. Tire dúvidas sobre nossos Micro-SaaS.',
+};
+
+export default function ContactPage() {
+  return (
+    <div className="max-w-4xl mx-auto space-y-12">
+      
+      {/* Cabeçalho de Contato */}
+      <section className="text-center py-12">
+        <h1 className="text-4xl font-black text-gray-900 mb-4">Fale Conosco</h1>
+        <p className="text-xl text-gray-600">
+          Dúvidas, sugestões ou parcerias? Estamos a um clique de distância.
+        </p>
+      </section>
+
+      {/* Grid: Formulário + Info */}
+      <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">Envie uma mensagem</h2>
+          {/* Reutilizando seu componente existente */}
+          <LeadCaptureForm />
+        </div>
+
+        <div className="space-y-8 border-l border-gray-100 pl-0 md:pl-12 pt-8 md:pt-0 border-t md:border-t-0">
+          <div>
+            <h3 className="font-bold text-gray-900 mb-2">E-mail Direto</h3>
+            <p className="text-orange-600 font-medium">contato@acaoleve.com</p>
+            <p className="text-sm text-gray-500 mt-1">Respondemos em até 24h úteis.</p>
+          </div>
+          
+          <div>
+            <h3 className="font-bold text-gray-900 mb-2">Horário de Atendimento</h3>
+            <p className="text-gray-600">Segunda a Sexta</p>
+            <p className="text-gray-600">09:00 às 18:00 (Brasília)</p>
+          </div>
+
+          <div className="p-4 bg-blue-50 rounded-xl text-blue-800 text-sm">
+            <strong>Dica:</strong> Para suporte técnico sobre uma ferramenta específica, mencione o nome dela no assunto (ex: "Erro no PolicyGen").
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ - O Segredo para o AdSense */}
+      <section className="py-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Perguntas Frequentes</h2>
+        <div className="grid gap-4">
+          <details className="group bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer">
+            <summary className="font-bold text-gray-800 list-none flex justify-between items-center">
+              As ferramentas são gratuitas?
+              <span className="transition group-open:rotate-180">▼</span>
+            </summary>
+            <p className="mt-4 text-gray-600 leading-relaxed">
+              A maioria das nossas ferramentas possui uma versão gratuita generosa ("Freemium"). 
+              Alguns recursos avançados podem exigir uma assinatura ou pagamento único para manter o servidor.
+            </p>
+          </details>
+
+          <details className="group bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer">
+            <summary className="font-bold text-gray-800 list-none flex justify-between items-center">
+              Como faço para cancelar minha conta?
+              <span className="transition group-open:rotate-180">▼</span>
+            </summary>
+            <p className="mt-4 text-gray-600 leading-relaxed">
+              Você pode gerenciar sua assinatura e dados diretamente no painel de usuário. 
+              Se preferir, envie um e-mail para nossa equipe de suporte solicitando a exclusão completa dos dados.
+            </p>
+          </details>
+          
+          <details className="group bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer">
+            <summary className="font-bold text-gray-800 list-none flex justify-between items-center">
+              Vocês desenvolvem ferramentas sob demanda?
+              <span className="transition group-open:rotate-180">▼</span>
+            </summary>
+            <p className="mt-4 text-gray-600 leading-relaxed">
+              Estamos sempre abertos a sugestões! Se você tem uma ideia de Micro-SaaS que resolveria um problema real, 
+              entre em contato. Avaliamos todas as propostas.
+            </p>
+          </details>
+        </div>
+      </section>
+
+    </div>
+  );
+}
+</file>
+
+<file path="app/termos-de-uso/page.tsx">
+import type { Metadata } from 'next';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+export const metadata: Metadata = {
+  title: 'Termos de Uso | Ação Leve',
+  description: 'Regras e condições para utilização das ferramentas do Portal Ação Leve.',
+};
+
+export default function TermsPage() {
+  return (
+    <article className="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+      <header className="mb-10 border-b border-gray-100 pb-8">
+        <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+          Termos de Uso
+        </h1>
+        <p className="text-gray-500 font-medium">
+          Última atualização: <span className="text-orange-600">28 de dezembro de 2025</span>
+        </p>
+      </header>
+
+      <div className="space-y-8 text-gray-600 leading-relaxed text-lg">
+        <p>
+          Bem-vindo ao <strong>Portal Ação Leve</strong> ("nós", "nosso", "conosco"), operado por João Denadai. Estes Termos de Uso regem seu acesso e uso do Portal Ação Leve. Ao acessar ou usar o Portal, você concorda em estar vinculado por estes Termos.
+        </p>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Aceitação dos Termos</h2>
+          <p>
+            Ao usar o Portal Ação Leve, você confirma que leu, entendeu e concordou em estar vinculado a estes Termos de Uso. O uso continuado do Portal após quaisquer alterações constitui sua aceitação das novas condições.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Acesso e Uso do Portal</h2>
+          <p>
+            O Portal Ação Leve concede a você uma licença limitada, não exclusiva, não transferível e revogável para acessar e usar o Portal para seus propósitos pessoais e não comerciais, em conformidade com estes Termos.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Responsabilidades do Usuário</h2>
+          <p className="mb-4">Você concorda em <strong>não</strong>:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Usar o Portal para qualquer finalidade ilegal ou proibida por estes Termos.</li>
+            <li>Violar quaisquer leis locais, estaduais, nacionais ou internacionais aplicáveis.</li>
+            <li>Envolver-se em qualquer atividade que possa danificar, desativar ou sobrecarregar o Portal.</li>
+            <li>Tentar obter acesso não autorizado a sistemas de computador ou redes conectadas ao Portal.</li>
+            <li>Enviar ou transmitir vírus, worms ou códigos destrutivos.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Propriedade Intelectual</h2>
+          <p>
+            Todo o conteúdo presente no Portal, incluindo textos, gráficos, logotipos e software, é propriedade de João Denadai ou de seus licenciadores e está protegido por leis de direitos autorais.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Links para Sites de Terceiros</h2>
+          <p>
+            O Portal pode conter links para sites de terceiros. Não somos responsáveis pelo conteúdo ou práticas de privacidade desses sites.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Limitação de Responsabilidade</h2>
+          <p className="bg-orange-50 p-4 rounded-lg border border-orange-100 text-orange-900">
+            Na máxima extensão permitida por lei, o Portal Ação Leve não será responsável por quaisquer danos indiretos, incidentais ou punitivos, resultantes do seu uso ou incapacidade de usar o Portal.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Indenização</h2>
+          <p>
+            Você concorda em indenizar João Denadai e seus parceiros contra quaisquer reivindicações decorrentes do seu uso do Portal ou violação destes Termos.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Legislação Aplicável</h2>
+          <p>
+            Estes Termos serão regidos pelas leis da República Federativa do Brasil. O foro eleito é o da Comarca de domicílio do usuário.
+          </p>
+        </section>
+
+        <section className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">9. Contato</h2>
+          <p>Para dúvidas sobre estes Termos de Uso:</p>
+          <a href="mailto:contato@acaoleve.com" className="text-orange-600 font-bold hover:underline mt-2 inline-block">
+            contato@acaoleve.com
+          </a>
+        </section>
+      </div>
+    </article>
+  );
+}
+</file>
+
+<file path="app/sitemap.ts">
+// acaoleve-portal/app/sitemap.ts   ← agora é dinâmico!
+
+import { MetadataRoute } from 'next';
+
+export const dynamic = 'force-dynamic'; // ← importantíssimo!
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // 1. Portal principal
+  const staticEntry = {
+    url: 'https://www.acaoleve.com',
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'daily' as const,
+    priority: 1,
+  };
+
+  // 2. Busca todos os subdomínios automaticamente
+  const res = await fetch('https://www.acaoleve.com/api/sitemap/entries', {
+    next: { revalidate: 3600 }, // recarrega a cada 1h (ou 0 pra sempre fresco)
+  });
+  const subdomains: Array<{ url: string; lastModified: string }> = await res.json();
+
+  return [staticEntry, ...subdomains];
+}
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.vercel
+.env*.local
+</file>
+
+<file path="app/api/update-screenshots/route.ts">
+import { put } from '@vercel/blob';
+import { NextResponse } from 'next/server';
+
+//export const dynamic = 'force-dynamic';
+
+const TOOLS = [
+  { id: 'policygen', url: 'https://policygen.acaoleve.com' },
+  { id: 'refeita-ai', url: 'https://refeita-ai.acaoleve.com' },
+  { id: 'brinca-ai', url: 'https://brinca-ai.acaoleve.com' },
+  { id: 'fechou-ai', url: 'https://fechou-ai.acaoleve.com' },
+  { id: 'nutripet-ai', url: 'https://nutripet-ai.acaoleve.com' },
+  { id: 'seu-evento', url: 'https://seu-evento.acaoleve.com' }
+];
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const secret = searchParams.get('secret');
+
+  // Prioriza a variável de ambiente, se não houver, usa o fallback
+  const MY_SECRET = process.env.CRON_SECRET || "acaoleve_screenshot_replace_2026";
+
+  if (!secret || secret !== MY_SECRET) {
+    console.log("🚫 Tentativa de acesso não autorizado.");
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
+  try {
+    const results = await Promise.all(TOOLS.map(async (tool) => {
+      try {
+        const microlinkUrl = `https://api.microlink.io/?url=${tool.url}&screenshot=true&meta=false&waitFor=4000&waitUntil=networkidle0&overlay.browser=dark`;
+        
+        const metadataRes = await fetch(microlinkUrl);
+        const metadata = await metadataRes.json();
+
+        if (metadata.status === 'fail') throw new Error(metadata.message);
+
+        const imageRes = await fetch(metadata.data.screenshot.url);
+        const buffer = Buffer.from(await imageRes.arrayBuffer());
+
+        const blob = await put(`screenshots/${tool.id}.jpg`, buffer, {
+          access: 'public',
+          addRandomSuffix: false,
+          contentType: 'image/jpeg',
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+          // @ts-ignore
+          allowOverwrite: true,
+        });
+
+        return { tool: tool.id, status: 'success', url: blob.url };
+      } catch (err: any) {
+        return { tool: tool.id, status: 'error', reason: err.message };
+      }
+    }));
+
+    return NextResponse.json({
+      message: "Operação finalizada",
+      timestamp: new Date().toISOString(),
+      results
+    });
+
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+</file>
+
+<file path="app/politica-de-privacidade/page.tsx">
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+export const metadata: Metadata = {
+  title: 'Política de Privacidade | Ação Leve',
+  description: 'Saiba como o Portal Ação Leve coleta, usa e protege seus dados pessoais de acordo com a LGPD.',
+};
+
+export default function PrivacyPolicyPage() {
+  return (
+    <article className="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+      <header className="mb-10 border-b border-gray-100 pb-8">
+        <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+          Política de Privacidade
+        </h1>
+        <p className="text-gray-500 font-medium">
+          Última atualização: <span className="text-orange-600">28 de dezembro de 2025</span>
+        </p>
+      </header>
+
+      <div className="space-y-8 text-gray-600 leading-relaxed text-lg">
+        <p>
+          Esta Política de Privacidade descreve como o <strong>Portal Ação Leve</strong> ("nós", "nosso", "conosco"), operado por João Denadai, coleta, usa, armazena e protege as informações pessoais de seus usuários ("você", "seu", "sua"). Ao utilizar nossos serviços e acessar o Portal Ação Leve, você concorda com as práticas descritas nesta política.
+        </p>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Informações que Coletamos</h2>
+          <p className="mb-4">Coletamos as seguintes categorias de informações pessoais:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li><strong>Informações de Identificação:</strong> Nome e e-mail.</li>
+            <li><strong>Dados de Navegação e Uso:</strong> Endereço IP.</li>
+          </ul>
+          <p className="mt-4 text-sm bg-gray-50 p-4 rounded-lg border-l-4 border-orange-500">
+            Não coletamos dados pessoais sensíveis.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Como Usamos Suas Informações</h2>
+          <p className="mb-4">Utilizamos as informações coletadas para as seguintes finalidades:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li><strong>Nome/e-mail:</strong> Para controle de uso, monitoramento das ferramentas e consolidação de banco de dados.</li>
+            <li><strong>Endereço IP:</strong> Para controle de uso em modelos free, freemium e pagos.</li>
+          </ul>
+          <p className="mt-4">Seus dados <strong>não são utilizados</strong> para rastreamento de anúncios.</p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Compartilhamento de Informações</h2>
+          <p>O Portal Ação Leve não compartilha suas informações pessoais com terceiros.</p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cookies e Tecnologias Semelhantes</h2>
+          <p>
+            Nosso Portal utiliza cookies para melhorar a sua experiência. Para mais detalhes sobre o uso de cookies, consulte nossa{' '}
+            <Link href="/politica-de-cookies" className="text-orange-600 hover:underline font-bold">
+              Política de Cookies
+            </Link>.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Retenção de Dados</h2>
+          <p>
+            Manteremos suas informações pessoais por <strong>1 ano</strong>, em geral. No entanto, cada ferramenta utilizada pode ter suas próprias políticas de retenção de dados, as quais respeitamos.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Seus Direitos</h2>
+          <p className="mb-4">De acordo com a Lei Geral de Proteção de Dados (LGPD), você tem direito a:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Confirmação da existência de tratamento;</li>
+            <li>Acesso aos dados;</li>
+            <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+            <li>Anonimização, bloqueio ou eliminação de dados desnecessários;</li>
+            <li>Portabilidade dos dados a outro fornecedor;</li>
+            <li>Eliminação dos dados pessoais tratados com o consentimento;</li>
+            <li>Revogação do consentimento, a qualquer momento.</li>
+          </ul>
+          <p className="mt-4">
+            Para exercer seus direitos, entre em contato conosco através do e-mail{' '}
+            <a href="mailto:contato@acaoleve.com" className="text-orange-600 font-bold hover:underline">contato@acaoleve.com</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Consentimento</h2>
+          <p>
+            Ao utilizar o Portal Ação Leve, você consente com a coleta e uso de suas informações conforme descrito nesta Política de Privacidade. Caso não concorde com esta política, por favor, não utilize nossos serviços.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Alterações</h2>
+          <p>
+            Podemos atualizar nossa Política de Privacidade periodicamente. Publicaremos quaisquer alterações nesta página. Recomendamos que você revise esta política regularmente.
+          </p>
+        </section>
+
+        <section className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">9. Contato</h2>
+          <p>Se você tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco:</p>
+          <a href="mailto:contato@acaoleve.com" className="text-orange-600 font-bold hover:underline mt-2 inline-block">
+            contato@acaoleve.com
+          </a>
+        </section>
+      </div>
+    </article>
+  );
+}
+</file>
+
+<file path="app/robot/robot.ts">
+// app/robots.ts → VERSÃO CORRETA E QUE COMPILA NO NEXT.JS 14+
+
+import { MetadataRoute } from 'next';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.acaoleve.com';
+
+// Versão ultra-limpa (minha preferida em produção)
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [
+      { userAgent: '*', allow: '/' },
+      { userAgent: '*', disallow: '/api/' },
+      { userAgent: '*', disallow: '/dashboard' },
+      { userAgent: '*', disallow: '/login' },
+      { userAgent: '*', disallow: '/registro' },
+    ],
+    sitemap: `${BASE_URL}/sitemap.xml`,
+  };
+}
+</file>
+
+<file path="components/auth/UserMenu.tsx">
+// components/auth/UserMenu.tsx
+'use client';
+
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import { LogIn, LogOut } from 'lucide-react'; // Ícones para o botão
+
+// ⚡ 1. Definindo as propriedades (isScrolled)
+interface UserMenuProps {
+    isScrolled?: boolean; // Propriedade opcional por segurança
+}
+
+// ⚡ 2. Recebendo a propriedade
+export function UserMenu({ isScrolled = false }: UserMenuProps) {
+  const { data: session, status } = useSession();
+  
+  // Tamanhos: 40px (original) no normal, 28px no scroll (o mesmo usado no Header)
+  const avatarSize = isScrolled ? 28 : 40; 
+
+  if (status === "loading") {
+    // Mantido o placeholder de carregamento
+    return <span className="text-gray-500 text-sm">Carregando...</span>;
+  }
+
+  if (!session) {
+    return (
+      <button
+        onClick={() =>
+          // ADICIONADO: callbackUrl força o retorno para a home
+          signIn("google", {
+            prompt: "select_account",
+            callbackUrl: "/", 
+          })
+        }
+        className="
+          flex items-center gap-2 
+          px-4 py-2 
+          bg-red-600
+          hover:bg-red-700
+          rounded-full 
+          shadow-md 
+          transition 
+          text-white
+          font-semibold
+          text-sm
+        "
+      >
+        <LogIn size={16} />
+        <span>Entrar</span>
+      </button>
+
+      // ⚠️ Observação: Removi o SVG do Google para manter o componente limpo. 
+      // Se você quer o ícone do Google, adicione-o separadamente ao lado do texto.
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3 transition-all duration-300">
+      <Image
+        src={session.user?.image || '/avatar-default.png'}
+        alt={`Avatar de ${session.user?.name || 'usuário'}`}
+        // ⚡ Aplicando o redimensionamento dinâmico
+        width={avatarSize}
+        height={avatarSize}
+        className="rounded-full transition-all duration-300 ring-2 ring-red-500/50"
+      />
+
+      {/* Opcional: Esconder o nome no scroll para economizar espaço */}
+      <span className={`
+          text-gray-700 transition-opacity duration-300 
+          ${isScrolled ? 'hidden sm:inline text-sm' : 'inline text-base'}
+      `}>
+        {session.user?.name}
+      </span>
+
+      <button
+        onClick={() => signOut()}
+        className="text-red-600 font-semibold text-sm hover:underline flex items-center gap-1"
+      >
+        <LogOut size={16} />
+        Sair
+      </button>
+    </div>
+  );
+}
+</file>
+
+<file path="components/Header.tsx">
+// components/Header.tsx
+"use client";
+
+import { useState, useEffect } from 'react';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import { UserMenu } from "@/components/auth/UserMenu";
+
+export default function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header
+      className="sticky top-0 z-50 transition-all duration-300"
+      style={{
+        background: isScrolled ? 'rgba(9,9,11,0.92)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
+        borderBottom: isScrolled ? '1px solid #27272A' : '1px solid transparent',
+        boxShadow: isScrolled ? '0 1px 0 rgba(249,115,22,0.04)' : 'none',
+        padding: isScrolled ? '10px 0' : '18px 0',
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+
+        {/* LEFT */}
+        <div className="flex items-center gap-4">
+          {!isHome && (
+            <a
+              href="https://www.acaoleve.com"
+              className="flex items-center gap-1.5 text-sm font-medium transition-colors"
+              style={{ color: '#71717A' }}
+              onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#F97316'}
+              onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#71717A'}
+            >
+              <ArrowLeft size={15} />
+              Voltar
+            </a>
+          )}
+
+          <Link href="/" className="flex items-center gap-3 group">
+            <div
+              className="relative overflow-hidden rounded-xl transition-all duration-300"
+              style={{ width: isScrolled ? 28 : 36, height: isScrolled ? 28 : 36 }}
+            >
+              <Image
+                src="/logo-acaoleve.png"
+                fill
+                alt="Logo Ação Leve"
+                className="object-contain transition-transform duration-200 group-hover:scale-110"
+                sizes="36px"
+              />
+            </div>
+            <span
+              className="font-display font-bold hidden sm:block transition-all duration-300 text-white"
+              style={{ fontSize: isScrolled ? '1rem' : '1.15rem' }}
+            >
+              Ação Leve
+            </span>
+          </Link>
+        </div>
+
+        {/* RIGHT */}
+        <UserMenu isScrolled={isScrolled} />
+      </div>
+    </header>
+  );
+}
+</file>
+
+<file path="lib/auth.ts">
+import NextAuth from "next-auth"
+import Google from "next-auth/providers/google"
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "select_account",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 dias
+  },
+  secret: process.env.AUTH_SECRET, // Note o nome novo (ou use process.env.NEXTAUTH_SECRET como fallback)
+  debug: process.env.NODE_ENV === "development",
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account && profile) {
+        token.id = profile.sub
+        token.name = profile.name
+        token.email = profile.email
+        token.picture = (profile as any).picture
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        // @ts-ignore
+        session.user.id = (token.id as string) || (token.sub as string) || "";
+        session.user.name = token.name || "";
+        session.user.email = token.email || "";
+        session.user.image = (token.picture as string) || "";
+      }
+      return session
+    },
+    authorized({ auth }) {
+      return !!auth?.user // Middleware: Retorna true se logado
+    },
+  },
+  pages: {
+    signIn: '/api/auth/signin', // Opcional, o v5 tem páginas padrão bonitas
+  },
+})
+</file>
+
+<file path="app/api/auth/[...nextauth]/route.ts">
+import { handlers } from "@/lib/auth"
+
+export const { GET, POST } = handlers
+</file>
+
+<file path="app/globals.css">
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/* stylelint-disable at-rule-no-unknown */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+/* ─── CUSTOM PROPERTIES ─────────────────────────────────── */
+:root {
+  --accent: #F97316;
+  --accent-muted: rgba(249, 115, 22, 0.15);
+  --bg-base: #09090B;
+  --bg-surface: #111113;
+  --bg-elevated: #1C1C1F;
+  --border: #27272A;
+  --text-primary: #FAFAFA;
+  --text-muted: #71717A;
+}
+
+/* ─── BASE ───────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  background-attachment: fixed;
+}
+
+/* ─── GRAIN TEXTURE OVERLAY ──────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: overlay;
+}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display, sans-serif);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #09090B; }
+::-webkit-scrollbar-thumb { background: #27272A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3F3F46; }
+
+/* ─── SELECTION ──────────────────────────────────────────── */
+::selection { background: rgba(249, 115, 22, 0.28); color: #FAFAFA; }
+
+/* ─── PLACEHOLDER ────────────────────────────────────────── */
+::placeholder { color: #52525B; opacity: 1; }
+
+/* ─── TAP HIGHLIGHT ──────────────────────────────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── ANIMATION UTILITIES ────────────────────────────────── */
+.animate-fade-up  { animation: fadeUp  0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in  { animation: fadeIn  0.5s ease both; }
+.animate-marquee  { animation: marquee 30s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+/* ─── GRADIENT TEXT ──────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── ORANGE GLOW BUTTON ─────────────────────────────────── */
+.btn-orange {
+  background: #F97316;
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+.btn-orange:hover {
+  background: #EA580C;
+  box-shadow: 0 0 35px -5px rgba(249, 115, 22, 0.55);
+  transform: scale(1.03);
+}
+.btn-orange:active { transform: scale(0.97); }
+
+/* ─── DARK CARD ──────────────────────────────────────────── */
+.card-dark {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-dark:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 55px -25px rgba(249, 115, 22, 0.45);
+  transform: translateY(-4px);
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+</file>
+
+<file path="components/telemetry/GtmScript.tsx">
+// components/telemetry/GtmScript.tsx
+
+'use client';
+
+import Script from 'next/script';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, Suspense } from 'react'; 
+
+// 🛑 REMOVER A LEITURA DO PROCESS.ENV AQUI
+// const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || null;
+
+/**
+ * Interface que garante a tipagem correta do DataLayer.
+ */
+interface GtmPushData {
+  event: string;
+  page: string;
+  [key: string]: any; 
+}
+
+// --- Componentes Internos (Adaptados para receber GTM_ID) ---
+
+// 1. GtmInitialisation agora recebe o ID
+function GtmInitialisation({ gtmId }: { gtmId: string }) {
+  // Não precisamos mais do check de null, pois o componente principal fará isso.
+  return (
+    <Script
+      id="googletagmanager"
+      strategy="beforeInteractive" 
+      src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`} // Usar gtmId
+    />
+  );
+}
+
+// 2. GtmPageviewTracker agora recebe o ID
+const GtmPageviewTracker = ({ gtmId }: { gtmId: string }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // 🛑 EXECUÇÃO SÊNIOR: Verifica se está no cliente
+    if (typeof window !== 'undefined') {
+      const url = pathname + searchParams.toString();
+      
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'page_view',
+          page: url,
+        } as GtmPushData);
+      }
+    }
+  }, [pathname, searchParams]);
+
+  return null;
+};
+
+// --- Componente Principal (Adaptado para receber GTM_ID) ---
+
+// GtmScript agora recebe o ID como prop
+export function GtmScript({ gtmId }: { gtmId: string | null }) {
+  // Desativa tudo se o ID estiver faltando
+  if (!gtmId) {
+    if (process.env.NODE_ENV === 'development') {
+        console.warn('GTM_ID ausente. O rastreamento está desativado.');
+    }
+    return <></>; 
+  }
+
+  // Se o ID existir, renderizamos
+  return (
+    <>
+      <GtmInitialisation gtmId={gtmId} />
+      
+      <Suspense fallback={null}> 
+        <GtmPageviewTracker gtmId={gtmId} />
+      </Suspense>
+
+      {/* NO-SCRIPT: Iframe para usuários sem JS. */}
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} // Usar gtmId
+          height="0"
+          width="0"
+          style={{ display: 'none', visibility: 'hidden' }}
+        />
+      </noscript>
+    </>
+  );
+}
+</file>
+
+<file path="components/Footer.tsx">
+// components/Footer.tsx
+'use client';
+
+import Link from "next/link";
+import Image from "next/image";
+import { Mail, MapPin } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer style={{ background: '#09090B', borderTop: '1px solid #27272A' }}>
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+          {/* Brand */}
+          <div className="md:col-span-1 space-y-5">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/logo-acaoleve.png"
+                width={32}
+                height={32}
+                alt="Logo Ação Leve"
+                className="rounded-xl"
+              />
+              <span className="font-display font-black text-xl text-white">Ação Leve</span>
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: '#52525B' }}>
+              Estúdio de Micro-SaaS focado em simplicidade. Criamos ferramentas que respeitam
+              seu tempo e seus dados.
+            </p>
+            <div className="flex items-center gap-2 text-xs" style={{ color: '#3F3F46' }}>
+              <MapPin size={13} />
+              <span>Brasil 🇧🇷</span>
+            </div>
+          </div>
+
+          {/* Explorar */}
+          <div>
+            <h3
+              className="font-bold mb-5 text-[10px] uppercase tracking-[0.18em]"
+              style={{ color: '#52525B' }}
+            >
+              Explorar
+            </h3>
+            <ul className="space-y-3 text-sm" style={{ color: '#52525B' }}>
+              <FooterLink href="/">Catálogo de Ferramentas</FooterLink>
+              <FooterLink href="/sobre">Sobre a Equipe</FooterLink>
+              <li>
+                <Link
+                  href="https://x.com/AcaoLeve"
+                  target="_blank"
+                  className="footer-link flex items-center gap-2 transition-colors"
+                  style={{ color: '#52525B' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#F97316'}
+                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#52525B'}
+                >
+                  <FaXTwitter size={13} />
+                  Build in Public
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3
+              className="font-bold mb-5 text-[10px] uppercase tracking-[0.18em]"
+              style={{ color: '#52525B' }}
+            >
+              Legal
+            </h3>
+            <ul className="space-y-3 text-sm" style={{ color: '#52525B' }}>
+              <FooterLink href="/politica-de-privacidade">Política de Privacidade</FooterLink>
+              <FooterLink href="/termos-de-uso">Termos de Uso</FooterLink>
+              <li>
+                <button
+                  className="transition-colors text-left"
+                  style={{ color: '#52525B' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = '#F97316'}
+                  onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = '#52525B'}
+                  onClick={() => {
+                    localStorage.removeItem('acaoleve_cookie_consent');
+                    window.location.reload();
+                  }}
+                >
+                  Preferências de Cookies
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Suporte */}
+          <div>
+            <h3
+              className="font-bold mb-5 text-[10px] uppercase tracking-[0.18em]"
+              style={{ color: '#52525B' }}
+            >
+              Suporte
+            </h3>
+            <ul className="space-y-3 text-sm" style={{ color: '#52525B' }}>
+              <FooterLink href="/contato">Central de Ajuda</FooterLink>
+              <li>
+                <Link
+                  href="mailto:contato@acaoleve.com"
+                  className="flex items-center gap-2 transition-colors"
+                  style={{ color: '#52525B' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#F97316'}
+                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#52525B'}
+                >
+                  <Mail size={13} />
+                  contato@acaoleve.com
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8"
+          style={{ borderTop: '1px solid #1C1C1F' }}
+        >
+          <p className="text-xs" style={{ color: '#3F3F46' }}>
+            © {currentYear} Ação Leve. Todos os direitos reservados.
+          </p>
+          <p className="text-xs" style={{ color: '#27272A' }}>
+            Next.js · Vercel · Made with ♥ no Brasil
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="transition-colors"
+        style={{ color: '#52525B' }}
+        onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#F97316'}
+        onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#52525B'}
+      >
+        {children}
+      </Link>
+    </li>
+  );
+}
+</file>
+
+<file path="next.config.js">
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  
+  //p  cacheComponents: true,
+  
+  // ⏳ SOLUÇÃO DO ERRO DE BUILD:
+  // Aumenta o tempo limite de geração estática para 3 minutos (180s).
+  // Isso resolve o erro "Static page generation timeout" ao baixar imagens do Blob.
+  staticPageGenerationTimeout: 180,
+
+  // 🔍 Ajuda a detectar problemas silenciosos no React
+  reactStrictMode: true,
+
+  // 🛡️ SEGURANÇA: Remove o cabeçalho "X-Powered-By: Next.js"
+  // Dificulta que hackers saibam qual tecnologia você usa.
+  poweredByHeader: false,
+
+  // 📦 Otimização de produção
+  productionBrowserSourceMaps: false, // Desabilita source maps (menor bundle, código fonte oculto)
+
+  // 📸 Configuração de Imagens (Otimizada)
+  images: {
+    // Formatos modernos (Google ama isso para SEO)
+    formats: ['image/avif', 'image/webp'],
+    
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com', // Google User
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com', // GitHub User
+      },
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com', // X/Twitter
+      },
+      {
+        protocol: 'https',
+        hostname: '**.gravatar.com', // Gravatar
+      },
+      {
+        protocol: 'https',
+        hostname: 'keuabft7jwxlysoy.public.blob.vercel-storage.com', // SEU VERCEL BLOB (Crucial)
+      },
+    ],
+  },
+
+  // 🔒 Cabeçalhos de Segurança HTTP (Ótimo para aprovação AdSense)
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN' // Evita que outros sites coloquem o seu em um iframe
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin'
+          },
+        ],
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;
+</file>
+
+<file path="postcss.config.js">
+// /postcss.config.js
+module.exports = {
+  plugins: {
+    'tailwindcss': {},
+    'autoprefixer': {},
+  },
+};
+</file>
+
+<file path="tailwind.config.ts">
+// tailwind.config.ts
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  darkMode: "class", // habilita dark mode controlado por classe
+
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+
+  theme: {
+    extend: {
+      colors: {
+        primary: "#0070f3",
+      },
+      
+      // ⚡ CORREÇÃO: As keyframes e animação devem estar aqui, dentro de 'extend'
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-out forwards',
+      },
+    },
+  },
+
+  plugins: [],
+}
+
+export default config
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    // 🔽 IMPORTANTE: Seu projeto NÃO usa SRC.
+    //"baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts",
+    "types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+</file>
+
+<file path="app/page.tsx">
+// app/page.tsx
+import Link from 'next/link';
+import Image from 'next/image';
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+const BLOB_BASE_URL = "https://keuabft7jwxlysoy.public.blob.vercel-storage.com/screenshots";
+
+const tools = [
+  {
+    id: 'nutripet-ai',
+    title: 'NutriPet.AI',
+    description: 'Inteligência artificial especializada em pet shops. Responde clientes no WhatsApp, lembra da saúde de cada pet, verifica estoque em tempo real e transforma conversas em vendas — 24 horas por dia.',
+    href: 'https://nutripet-ai.acaoleve.com',
+    badge: 'NOVO',
+    featured: true,
+  },
+  {
+    id: 'fechou-ai',
+    title: 'Fechou.AI',
+    description: 'Transforme sua voz em orçamento profissional. Feche mais negócios.',
+    href: 'https://fechou-ai.acaoleve.com',
+    badge: 'DESTAQUE',
+    featured: true,
+  },
+  {
+    id: 'seu-evento',
+    title: 'Seu Evento',
+    description: 'Organize festas e eventos com simplicidade e alegria.',
+    href: 'https://seu-evento.acaoleve.com',
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 'refeita-ai',
+    title: 'Refeita.AI',
+    description: 'O que tem na geladeira? A IA transforma em receitas incríveis.',
+    href: 'https://refeita-ai.acaoleve.com',
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 'policygen',
+    title: 'PolicyGen',
+    description: 'Política de Privacidade e Termos de Uso em minutos (LGPD).',
+    href: 'https://policygen.acaoleve.com',
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 'brinca-ai',
+    title: 'Brinca.AI',
+    description: 'Brincadeiras e atividades mágicas criadas por IA para crianças.',
+    href: 'https://brinca-ai.acaoleve.com',
+    badge: null,
+    featured: false,
+  },
+];
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-white">
+      
+      {/* HERO SECTION - Mais emocional */}
+      <section className="text-center py-28 md:py-40 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(at_top,#f9731620_0%,transparent_50%)]"></div>
+        
+        <div className="relative">
+          <h1 className="text-7xl md:text-[5.5rem] font-black tracking-tighter bg-gradient-to-br from-gray-900 via-orange-600 to-gray-900 bg-clip-text text-transparent mb-6">
+            Ação Leve
+          </h1>
+          
+          <p className="text-2xl md:text-3xl text-gray-600 max-w-4xl mx-auto leading-tight font-light">
+            Ferramentas brasileiras feitas com carinho,<br />
+            <span className="font-medium text-orange-600">para resolver problemas reais do dia a dia.</span>
+          </p>
+
+          <p className="mt-6 text-lg text-gray-500">
+            Simples. Úteis. Feitas por quem entende do Brasil.
+          </p>
+        </div>
+      </section>
+
+      {/* GRID DE FERRAMENTAS - Mais acolhedor */}
+      <section className="max-w-7xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {tools
+            .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+            .map((tool) => {
+              const screenshotUrl = `${BLOB_BASE_URL}/${tool.id}.jpg`;
+
+              return (
+                <Link 
+                  key={tool.id} 
+                  href={tool.href} 
+                  target="_blank"
+                  className="group flex flex-col h-full"
+                >
+                  <div className={`relative flex flex-col h-full p-8 rounded-3xl border bg-white transition-all duration-500 hover:-translate-y-2
+                    ${tool.featured 
+                      ? 'border-orange-500 shadow-xl shadow-orange-500/10' 
+                      : 'border-gray-200 hover:border-gray-300 hover:shadow-2xl'}`}
+                  >
+                    {/* Badge */}
+                    {tool.badge && (
+                      <div className="absolute -top-4 left-8">
+                        <span className="px-5 py-1.5 rounded-full text-xs font-bold tracking-widest bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md">
+                          {tool.badge}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Screenshot */}
+                    <div className="relative mt-4 mb-8 aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-inner">
+                      <Image
+                        src={screenshotUrl}
+                        alt={tool.title}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    </div>
+
+                    <div className="flex-1 space-y-4">
+                      <h3 className="text-3xl font-black text-gray-900 group-hover:text-orange-600 transition-colors">
+                        {tool.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-[17px]">
+                        {tool.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 flex items-center gap-3 text-orange-600 font-semibold group-hover:gap-4 transition-all">
+                      Acessar ferramenta
+                      <span className="text-xl transition-transform group-hover:translate-x-1">→</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+      </section>
+
+      {/* Footer leve */}
+      <footer className="text-center py-12 border-t border-gray-100">
+        <p className="text-gray-500 text-sm">
+          Feito com ❤️ e café no Brasil 🇧🇷 • Novas ferramentas toda semana, ou quase
+        </p>
+      </footer>
+    </div>
+  );
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "acaoleve-portal",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "@eslint/js": "^10.0.1",
+    "@vercel/blob": "^2.8.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cn": "^0.4.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-tailwindcss": "^3.18.3",
+    "eslint-plugin-unicorn": "^64.0.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "framer-motion": "^13.5.0",
+    "lucide-react": "^1.49.0",
+    "next": "16.3.8",
+    "next-auth": "5.0.0-beta.30",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-icons": "^5.7.0",
+    "repomix": "^1.18.1",
+    "shadcn": "^4.21.1",
+    "tailwind-merge": "^3.7.0",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "autoprefixer": "^10.4.19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "10.11.0",
+    "eslint-config-next": "16.3.8",
+    "postcss": "^8.4.38",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-tailwindcss": "^1.0.1",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.3.0",
+      "@types/react-dom": "19.3.0"
+    }
+  }
+}
+</file>
+
+<file path="app/layout.tsx">
+// app/layout.tsx
+import type { Metadata, Viewport } from 'next';
+import { Syne, Figtree, Geist } from "next/font/google";
+import Script from 'next/script';
+import "./globals.css";
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { SessionProviderWrapper } from "@/components/auth/SessionProviderWrapper";
+import { AutoLoginTrigger } from "@/components/auth/AutoLoginTrigger";
+import { CookieConsent } from "@/components/privacy/CookieConsent";
+import { GtmScript } from "@/components/telemetry/GtmScript";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+//export const instant = false;
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const figtree = Figtree({
+  subsets: ['latin'],
+  variable: '--font-body',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID ?? "";
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? null;
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#09090B',
+};
+
+export const metadata: Metadata = {
+  title: {
+    default: "Ação Leve — Micro-SaaS Brasileiros",
+    template: "%s · Ação Leve",
+  },
+  description: "Ferramentas leves e inteligentes para produtividade digital. Micro-SaaS brasileiros sem frescura.",
+  metadataBase: new URL("https://www.acaoleve.com"),
+  ...(ADSENSE_PUB_ID && {
+    other: { "google-adsense-account": ADSENSE_PUB_ID },
+  }),
+  icons: [
+    { rel: "icon", url: "/favicon.ico" },
+    { rel: "icon", url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    { rel: "icon", url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    { rel: "apple-touch-icon", url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    { rel: "icon", url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+    { rel: "icon", url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+  ],
+  manifest: "/manifest.json",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html
+      lang="pt-BR"
+      suppressHydrationWarning
+      className={cn(syne.variable, figtree.variable, "font-sans", geist.variable)}
+      style={{ fontFamily: 'var(--font-body, Figtree, sans-serif)' }}
+    >
+      <body
+        className="antialiased flex flex-col min-h-screen"
+        style={{ backgroundColor: '#09090B', color: '#FAFAFA', fontFamily: 'var(--font-body, Figtree, sans-serif)' }}
+        suppressHydrationWarning
+      >
+        {GTM_ID && <GtmScript gtmId={GTM_ID} />}
+
+        {ADSENSE_PUB_ID && (
+          <Script
+            id="adsense-init"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUB_ID}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        )}
+
+        <SessionProviderWrapper>
+          <AutoLoginTrigger />
+          <Header />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <CookieConsent />
+        </SessionProviderWrapper>
+      </body>
+    </html>
+  );
+}
+</file>
+
+</files>

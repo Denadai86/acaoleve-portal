@@ -1,84 +1,55 @@
 // components/auth/UserMenu.tsx
 'use client';
 
-import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import { LogIn, LogOut } from 'lucide-react'; // Ícones para o botão
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import { LogOut } from 'lucide-react';
 
-// ⚡ 1. Definindo as propriedades (isScrolled)
 interface UserMenuProps {
-    isScrolled?: boolean; // Propriedade opcional por segurança
+  isScrolled?: boolean;
 }
 
-// ⚡ 2. Recebendo a propriedade
 export function UserMenu({ isScrolled = false }: UserMenuProps) {
   const { data: session, status } = useSession();
-  
-  // Tamanhos: 40px (original) no normal, 28px no scroll (o mesmo usado no Header)
-  const avatarSize = isScrolled ? 28 : 40; 
+  const avatarSize = isScrolled ? 28 : 36;
 
-  if (status === "loading") {
-    // Mantido o placeholder de carregamento
-    return <span className="text-gray-500 text-sm">Carregando...</span>;
+  if (status === 'loading') {
+    // placeholder neutro, sem texto "Carregando..."
+    return <span aria-hidden className="h-9 w-20 animate-pulse rounded-full bg-elevated" />;
   }
 
   if (!session) {
     return (
       <button
-        onClick={() =>
-          // ADICIONADO: callbackUrl força o retorno para a home
-          signIn("google", {
-            prompt: "select_account",
-            callbackUrl: "/", 
-          })
-        }
-        className="
-          flex items-center gap-2 
-          px-4 py-2 
-          bg-red-600
-          hover:bg-red-700
-          rounded-full 
-          shadow-md 
-          transition 
-          text-white
-          font-semibold
-          text-sm
-        "
+        type="button"
+        onClick={() => signIn('google', { prompt: 'select_account', callbackUrl: '/' })}
+        className="rounded-full border border-border px-4 py-1.5 text-sm font-semibold transition hover:border-brand/50 hover:text-brand"
       >
-        <LogIn size={16} />
-        <span>Entrar</span>
+        Entrar
       </button>
-
-      // ⚠️ Observação: Removi o SVG do Google para manter o componente limpo. 
-      // Se você quer o ícone do Google, adicione-o separadamente ao lado do texto.
     );
   }
 
   return (
-    <div className="flex items-center gap-3 transition-all duration-300">
+    <div className="flex items-center gap-3">
       <Image
         src={session.user?.image || '/avatar-default.png'}
         alt={`Avatar de ${session.user?.name || 'usuário'}`}
-        // ⚡ Aplicando o redimensionamento dinâmico
         width={avatarSize}
         height={avatarSize}
-        className="rounded-full transition-all duration-300 ring-2 ring-red-500/50"
+        className="rounded-full ring-2 ring-brand/40 transition-all duration-300"
       />
-
-      {/* Opcional: Esconder o nome no scroll para economizar espaço */}
-      <span className={`
-          text-gray-700 transition-opacity duration-300 
-          ${isScrolled ? 'hidden sm:inline text-sm' : 'inline text-base'}
-      `}>
+      <span className="hidden max-w-32 truncate text-sm text-muted-foreground lg:inline">
         {session.user?.name}
       </span>
-
       <button
-        onClick={() => signOut()}
-        className="text-red-600 font-semibold text-sm hover:underline flex items-center gap-1"
+        type="button"
+        onClick={() => signOut({ callbackUrl: '/' })}
+        aria-label="Sair"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-brand"
       >
-        <LogOut size={16} />
-        Sair
+        <LogOut size={16} aria-hidden />
+        <span className="hidden sm:inline">Sair</span>
       </button>
     </div>
   );

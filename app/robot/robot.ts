@@ -2,7 +2,7 @@
 
 import { MetadataRoute } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.acaoleve.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.acaoleve.com.br';
 
 // Versão ultra-limpa (minha preferida em produção)
 export default function robots(): MetadataRoute.Robots {

@@ -6,6 +6,8 @@ const SUBDOMAINS = [
   'refeita-ai',
   'policygen',
   'fechou-ai',
+  'seu-evento',
+  'nutripet-ai',
   // ← quando lançar nova SaaS, só adiciona o prefixo aqui (1 linha!)
   // 'nota-ai',
   // 'fatura-ai',
@@ -14,7 +16,7 @@ const SUBDOMAINS = [
 
 export async function GET() {
   const entries = SUBDOMAINS.map((sub) => ({
-    url: `https://${sub}.acaoleve.com`,
+    url: `https://${sub}.acaoleve.com.br`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly' as const,
     priority: 0.9,

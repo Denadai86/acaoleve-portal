@@ -1,0 +1,7 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTSdk": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "eslint.nodePath": "node_modules",
+  "eslint.workingDirectories": [{ "mode": "auto" }]
+}
