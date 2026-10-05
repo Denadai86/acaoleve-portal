@@ -95,6 +95,7 @@ export default function ToolSales({ tool, sales }: { tool: Tool; sales: Sales })
       </section>
 
       {/* NÚMEROS */}
+      {sales.stats && (
       <section className="mx-auto max-w-5xl px-6 pb-20">
         <dl className="grid divide-y divide-border rounded-2xl border border-border bg-card sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {sales.stats.map((s) => (
@@ -105,6 +106,7 @@ export default function ToolSales({ tool, sales }: { tool: Tool; sales: Sales })
           ))}
         </dl>
       </section>
+      )}
 
       {/* PROBLEMA */}
       <section className="mx-auto max-w-3xl px-6 pb-20 text-center">
@@ -113,6 +115,26 @@ export default function ToolSales({ tool, sales }: { tool: Tool; sales: Sales })
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{sales.problem.text}</p>
       </section>
+
+      {/* COMO FUNCIONA */}
+      {sales.steps && (
+        <section className="mx-auto max-w-7xl px-6 pb-20">
+          <h2 className="mb-8 font-display text-2xl font-bold md:text-3xl">
+            {sales.stepsTitle ?? 'Como funciona'}
+          </h2>
+          <ol
+            className={`grid gap-5 ${sales.steps.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'}`}
+          >
+            {sales.steps.map((s, i) => (
+              <li key={s.title} className="rounded-2xl border border-border bg-card p-6">
+                <span className="font-display text-sm font-bold text-brand">Passo {i + 1}</span>
+                <h3 className="mt-2 font-display text-lg font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       {/* O QUE FAZ */}
       <section className="mx-auto max-w-7xl px-6 pb-20">
@@ -185,6 +207,71 @@ export default function ToolSales({ tool, sales }: { tool: Tool; sales: Sales })
         </section>
       )}
 
+      {/* PROPOSTA DE EXEMPLO */}
+      {sales.proposalDemo && (
+        <section className="mx-auto max-w-7xl px-6 pb-20">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className="text-sm font-semibold text-brand">{sales.proposalDemo.eyebrow}</p>
+              <h2 className="mt-3 text-balance font-display text-2xl font-bold md:text-4xl">
+                <Accent text={sales.proposalDemo.title} accent={sales.proposalDemo.titleAccent} />
+              </h2>
+              <ul className="mt-6 space-y-3">
+                {sales.proposalDemo.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-muted-foreground">
+                    <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/15 text-brand">
+                      <Check size={12} aria-hidden />
+                    </span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className="mx-auto w-full max-w-sm"
+              role="img"
+              aria-label={`Exemplo ilustrativo de proposta de ${sales.proposalDemo.company}`}
+            >
+              <div className="overflow-hidden rounded-2xl bg-white text-slate-900 shadow-[0_0_70px_-30px] shadow-brand/60">
+                <div className="border-b border-slate-200 px-6 py-4 text-center">
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    {sales.proposalDemo.company}
+                  </p>
+                </div>
+                <div className="bg-slate-900 px-6 py-5 text-center text-white">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                    Valor total
+                  </p>
+                  <p className="mt-1 text-3xl font-black">{sales.proposalDemo.total}</p>
+                </div>
+                <div className="space-y-4 p-6">
+                  <p className="font-bold">{sales.proposalDemo.docTitle}</p>
+                  <div className="space-y-2 rounded-xl bg-slate-50 p-4 text-sm">
+                    {sales.proposalDemo.items.map((it) => (
+                      <div key={it.name} className="flex justify-between gap-4">
+                        <span className="text-slate-700">{it.name}</span>
+                        <span className="font-bold">{it.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mx-auto grid size-24 place-items-center rounded-lg border-2 border-dashed border-slate-300 text-xs text-slate-400">
+                    QR Code PIX
+                  </div>
+                  <div className="rounded-xl bg-green-500 py-3 text-center text-sm font-bold text-white">
+                    {sales.proposalDemo.button}
+                  </div>
+                  <p className="text-center text-xs text-slate-500">{sales.proposalDemo.validity}</p>
+                </div>
+              </div>
+              <p className="mt-3 text-center text-xs text-muted-foreground">
+                {sales.proposalDemo.caption}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* PARA QUEM É */}
       {sales.audience && (
         <section className="mx-auto max-w-3xl px-6 pb-20 text-center">
@@ -199,6 +286,50 @@ export default function ToolSales({ tool, sales }: { tool: Tool; sales: Sales })
               </span>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* PREÇOS */}
+      {sales.pricing && (
+        <section
+          className={`mx-auto px-6 pb-20 ${sales.pricing.plans.length > 2 ? 'max-w-6xl' : 'max-w-4xl'}`}
+        >
+          <h2 className="mb-8 text-center font-display text-2xl font-bold md:text-3xl">
+            {sales.pricing.title}
+          </h2>
+          <div
+            className={`grid gap-5 ${sales.pricing.plans.length > 2 ? 'lg:grid-cols-3' : 'md:grid-cols-2'}`}
+          >
+            {sales.pricing.plans.map((p) => (
+              <div
+                key={p.name}
+                className={
+                  p.highlight
+                    ? 'rounded-2xl border border-brand/50 bg-card p-8 shadow-[0_0_60px_-35px] shadow-brand/60'
+                    : 'rounded-2xl border border-border bg-card p-8'
+                }
+              >
+                <p className="font-display text-lg font-bold">{p.name}</p>
+                <p className="mt-2">
+                  <span className="font-display text-4xl font-extrabold">{p.price}</span>
+                  {p.period && <span className="text-muted-foreground">{p.period}</span>}
+                </p>
+                <ul className="mt-6 space-y-3">
+                  {p.items.map((it) => (
+                    <li key={it} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/15 text-brand">
+                        <Check size={12} aria-hidden />
+                      </span>
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {sales.pricing.note && (
+            <p className="mt-4 text-center text-xs text-muted-foreground">{sales.pricing.note}</p>
+          )}
         </section>
       )}
 
